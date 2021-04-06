@@ -19,11 +19,11 @@
         <img src="CSS/Logo.jpg" alt="IoTBay Logo" class="image" width="175" height="175">
         
         <div class="body">
-            <form action="Login.jsp" method="POST">
+            <form action="login.jsp" method="POST">
                 <input class="button" type="submit" id="login" value="Login"/>
             </form>
             
-            <form action="Register.jsp" method="POST">
+            <form action="register.jsp" method="POST">
                 <input class="button" type="submit" id="register" value="Register"/>
             </form>
         </div>

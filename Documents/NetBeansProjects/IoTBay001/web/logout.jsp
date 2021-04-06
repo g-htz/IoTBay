@@ -19,7 +19,7 @@
         <h2> You have successfully logged out of IoTBay </h2>
         
         
-        <form action="Login.jsp" method="POST">
+        <form action="login.jsp" method="POST">
             <input class="button" type="submit" id="login" value="Login to IoTBay"/>
         </form>
         

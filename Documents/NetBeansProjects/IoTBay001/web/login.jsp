@@ -16,7 +16,7 @@ and open the template in the editor.
     <body>
         <div class='col-md-3 my-auto' style='margin: 0 auto;'>
             <h1 class='align-middle' style='text-align: center;'>Log In</h1>
-            <form action="welcome.jsp" method="POST">
+            <form action="welcome-iot.jsp" method="POST">
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">

@@ -65,5 +65,6 @@
             <h2 style="align-items: center"> Bringing you to your dashboard now!</h2>
                 
         </div>
+        <a href="main.jsp">Click here if it no work</a>
     </body>
 </html>

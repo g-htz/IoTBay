@@ -62,7 +62,7 @@
             <li><a href="#">Products</a></li>
             <li><a href="#">Account</a></li>
             <li><a href="#">Support</a></li>
-            <li class="logout"><a href="#">Logout</a></li>
+            <li class="logout"><a href="logout.jsp">Logout</a></li>
         </ul>
 
         <h1>Dashboard</h1>
