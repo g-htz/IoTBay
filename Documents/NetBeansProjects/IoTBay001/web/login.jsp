@@ -35,7 +35,7 @@ and open the template in the editor.
                     <label><input type="checkbox" name="remember"> Remember me</label>
                 </div>
                     <button type="submit" class="btn btn-default">Submit</button>
-                    <a href="register.html">Sign Up</a>
+                    <a href="register.jsp">Register</a>
             </form>
         </div>
     </body>
