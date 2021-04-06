@@ -3,20 +3,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="CSS/Style.css">
+        <link rel="stylesheet" href="style.css">
         <title> Home Page</title>
     </head>
     
     <style>
         body {
-            background-image: url('CSS/Background.png');
+            background-image: url('background.png');
         }
     </style>
     
     <body>
         
         <h1> Welcome to IoTBay! </h1>
-        <img src="CSS/Logo.jpg" alt="IoTBay Logo" class="image" width="175" height="175">
+        <img src="logo.png" alt="IoTBay Logo" class="image" width="175" height="175">
         
         <div class="body">
             <form action="login.jsp" method="POST">
@@ -29,8 +29,8 @@
         </div>
         
         <div class="footer">
-            <p> @Copyright 2021 - ISD Group # </p>
-            <p> Name, Name, Name, Name </p>
+            <p> @Copyright 2021 - ISD Group 16 </p>
+            <p> George, Misty, Reagan, Catherine </p>
         </div>
         
     </body>

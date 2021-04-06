@@ -3,13 +3,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="Stylesheet" href="CSS/Style.css">
+        <link rel="Stylesheet" href="style.css">
         <title>Logout Page</title>
     </head>
     
     <style>
         body {
-            background-image: url('CSS/Background.png');
+            background-image: url('background.png');
         }
     </style>
     
@@ -24,8 +24,8 @@
         </form>
         
         <div class="footer">
-            <p> @Copyright 2021 - ISD Group # </p>
-            <p> Name, Name, Name, Name </p>
+            <p> @Copyright 2021 - ISD Group 16 </p>
+            <p> George, Misty, Reagan, Catherine </p>
         </div>
         
     </body>
