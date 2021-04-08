@@ -22,7 +22,7 @@ and open the template in the editor.
                 <input type="text" name="registrationStateTf" place="State" />
                 <input type="text" name="registrationCountryTf" placeholder="Country" />
                 <select name="registrationFoundOut">
-                    <option>How did you find out?</option>
+                    <option>How did you find us?</option>
                     <option>Friends/Coworkers</option>
                     <option>Search Engine</option>
                     <option>Social media</option>
