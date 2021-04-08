@@ -13,12 +13,6 @@ and open the template in the editor.
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="Stylesheet" href="style.css">
-        
-        <style>
-        body {
-            background-image: url('background.png');
-        }
-    </style>
     </head>
     <body>
         <div class='col-md-3 my-auto' style='margin: 0 auto;'>
