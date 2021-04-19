@@ -5,6 +5,33 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
+
+<% 
+    String input_FName = request.getParameter("registrationFirstNameTf");
+    String input_LName = request.getParameter("registrationLastNameTf");
+    String input_Email = request.getParameter("registrationEmailTf");
+    String input_Phone = request.getParameter("registrationPhoneTf");
+    String input_Address = request.getParameter("registrationAddressTf");
+    String input_Suburb = request.getParameter("registrationSuburbTf");
+    String input_State = request.getParameter("registrationStateTf");
+    String input_Country = request.getParameter("registrationCountryTf");
+    Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/sample", "app", "app");
+    Statement st = con.createStatement();
+    int i=st.executeUpdate("Insert into customer3(registrationFirstNameTf, registrationLastNameTf,"
+                            + "registrationEmailTf, registrationPhoneTf, registrationAddressTf,"
+                            + "registrationSuburbTf, registrationStateTf,registrationCountryTf) "
+                            + "values ('"+input_FName+"', '"+input_LName+"', '"+input_Email+"',"
+                                        +" '"+input_Phone+"', '"+input_Address+"', '"+input_Suburb+"',"
+                                        + "'"+input_State+"', '"+input_Country+"')");
+    out.println("inserted");
+%>
 <!DOCTYPE html>
 <html>
     <head>
