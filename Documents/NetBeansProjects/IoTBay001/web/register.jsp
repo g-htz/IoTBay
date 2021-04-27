@@ -12,33 +12,36 @@
     <body>
         <div class='col-md-3 my-auto' style='margin: 0 auto;'>
             <h1 class='align-middle' style='text-align: center;'>Register</h1>
-            <form action="main.jsp" method="POST">
+            <form action="Main.jsp" method="POST">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="registrationFirstNameTf" placeholder="First Name" />
+                    <input class="form-control" type="text" name="registrationFirstNameTf" placeholder="First Name" required />
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="registrationLastNameTf" placeholder="Last Name" />
+                    <input class="form-control" type="text" name="registrationLastNameTf" placeholder="Last Name" required/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="registrationEmailTf" placeholder="Email Address" />
+                    <input class="form-control" type="email" name="registrationEmailTf" placeholder="Email Address" required/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="registrationPhoneTf" placeholder="Phone Number" />
+                    <input class="form-control" type="password" name="registrationEmailTf" placeholder="Password" required/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="registrationAddressTf" placeholder="Address" />
+                    <input class="form-control" type="text" name="registrationPhoneTf" placeholder="Phone Number" required/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="registrationSuburbTf" placeholder="Suburb" />
+                    <input class="form-control" type="text" name="registrationAddressTf" placeholder="Address" required/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="registrationStateTf" placeholder="State" />
+                    <input class="form-control" type="text" name="registrationSuburbTf" placeholder="Suburb" required/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="registrationCountryTf" placeholder="Country" />
+                    <input class="form-control" type="text" name="registrationStateTf" placeholder="State" required/>
                 </div>
                 <div class="form-group">
-                    <select name="registrationFoundOut">
+                    <input class="form-control" type="text" name="registrationCountryTf" placeholder="Country" required/>
+                </div>
+                <div class="form-group">
+                    <select name="registrationFoundOut" required>
                         <option>How did you find us?</option>
                         <option>Friends/Coworkers</option>
                         <option>Search Engine</option>
@@ -48,7 +51,7 @@
                 </div>
                 <div class="form-group">
                     <label for="toc">I have read the Terms and Conditions:</label>
-                    <input type="checkbox" name="toc" value="ON" />
+                    <input type="checkbox" id="toc" name="toc" value="Credit Card" required/>
                 </div>
                 <div class="form-group">
                     <input class="btn btn-default" type="submit" value="Submit" name="registrationBtn" />
