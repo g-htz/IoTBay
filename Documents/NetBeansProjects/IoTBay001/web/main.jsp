@@ -22,15 +22,16 @@
     String input_Suburb = request.getParameter("registrationSuburbTf");
     String input_State = request.getParameter("registrationStateTf");
     String input_Country = request.getParameter("registrationCountryTf");
+    String input_Password = request.getParameter("registrationPasswordTf");
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/sample", "app", "app");
     Statement st = con.createStatement();
     int i=st.executeUpdate("Insert into customer3(registrationFirstNameTf, registrationLastNameTf,"
                             + "registrationEmailTf, registrationPhoneTf, registrationAddressTf,"
-                            + "registrationSuburbTf, registrationStateTf,registrationCountryTf) "
+                            + "registrationSuburbTf, registrationStateTf,registrationCountryTf, "
+                            + "registrationPasswordTf) "
                             + "values ('"+input_FName+"', '"+input_LName+"', '"+input_Email+"',"
                                         +" '"+input_Phone+"', '"+input_Address+"', '"+input_Suburb+"',"
-                                        + "'"+input_State+"', '"+input_Country+"')");
-    out.println("inserted");
+                                        + "'"+input_State+"', '"+input_Country+"', '"+input_Password+"')");
 %>
 <!DOCTYPE html>
 <html>
@@ -89,7 +90,8 @@
             <li><a href="#">Products</a></li>
             <li><a href="#">Account</a></li>
             <li><a href="#">Support</a></li>
-            <li class="logout"><a href="logout.jsp">Logout</a></li>
+            <li class="float-right"><a href="logout.jsp">Logout</a></li>
+            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
         </ul>
 
         <h1>Dashboard</h1>
