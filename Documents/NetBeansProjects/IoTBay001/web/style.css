@@ -15,15 +15,12 @@ h1 {
     border: 2px solid skyblue;
     margin: 10px 10px 10px 10px;
     align-content: center;
-    align-items: center;
+    align-items: center;     
 }
 .button:hover {
     background-color: whitesmoke;
     border: 2px solid whitesmoke;
     color: black;
-}
-.header {
-    background-color: beige;
 }
 .footer {
    position: fixed;
@@ -40,7 +37,38 @@ h1 {
     margin: auto;
     padding-bottom: 20px;
 }
-
-body {
-            background-image: url('background.png');
-        }
+.review {
+    background-color: #B0DDFF;
+    text-align: center;
+    margin-top: 10px;
+    padding: auto;
+}
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 15%;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    position: fixed; 
+    top: 0;
+    width: 100%; }
+.navbar li {​​​​​​​float: left;}
+.navbar a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 2rem;
+}
+.navbar a:hover {
+    background-color: #70eeff;
+    color: white;
+}
+.div {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+}

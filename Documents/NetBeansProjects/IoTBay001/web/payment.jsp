@@ -4,7 +4,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title> IoTBay | Checkout </title>
-        <link href="Style.css" rel="stylesheet" type="text/css"/>
+        <link href="style.css" rel="stylesheet" type="text/css"/>
+        <link href="navbar.css" rel="stylesheet" type="text/css"/>
     </head>
     
     <style>
