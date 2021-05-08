@@ -3,13 +3,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="Stylesheet" href="style.css">
+        <link rel="Stylesheet" href="css/style.css">
         <title>Logout Page</title>
     </head>
     
     <style>
         body {
-            background-image: url('background.png');
+            background-image: url('images/background.png');
         }
     </style>
     

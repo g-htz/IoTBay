@@ -4,8 +4,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title> IoTBay | Checkout </title>
-        <link href="style.css" rel="stylesheet" type="text/css"/>
-        <link href="navbar.css" rel="stylesheet" type="text/css"/>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/navbar.css" rel="stylesheet" type="text/css"/>
     </head>
     
     <style>
@@ -60,14 +60,14 @@
                     <tr>
                         <td><input type="radio" id="credit" name="paymentmethod" value="Credit Card" required/></td>
                         <td> Credit Card </td> 
-                        <td><img src="CSS/CC.png" alt="Credit Card" width="70" height="70"></td>
+                        <td><img src="images/CC.png" alt="Credit Card" width="70" height="70"></td>
                         <td> </td>
                         <td><input type="radio" id="vc" name="paymentmethod" value="Visa Card"/></td>
                         <td> VISA </td>
-                        <td><img src="CSS/VC.png" alt="PayPal" width="80" height="50"></td>
+                        <td><img src="images/VC.png" alt="PayPal" width="80" height="50"></td>
                         <td><input type="radio" id="mc" name="paymentmethod"value="Master Card"/></td>
                         <td> MasterCard </td>
-                        <td><img src="CSS/MC.png" alt="PayPal" width="100" height="50"></td>
+                        <td><img src="images/MC.png" alt="PayPal" width="100" height="50"></td>
                     </tr>
                 </table>
             
@@ -115,11 +115,11 @@
                 <tr>
                     <td><input type="radio" id="credit" name="shipping" value="standard" required/></td>
                     <td> Standard Shipping </td> 
-                    <td><img src="CSS/CC.png" alt="Credit Card" width="70" height="70"></td>
+                    <td><img src="images/CC.png" alt="Credit Card" width="70" height="70"></td>
                     <td> </td>
                     <td><input type="radio" id="vc" name="shipping" value="express"/></td>
                     <td> Express Shipping </td>
-                    <td><img src="CSS/VC.png" alt="PayPal" width="80" height="50"></td>
+                    <td><img src="images/VC.png" alt="PayPal" width="80" height="50"></td>
                 </tr>
             </table>
             
