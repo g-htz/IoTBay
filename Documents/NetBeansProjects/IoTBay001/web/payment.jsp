@@ -20,17 +20,17 @@
         <header style="padding-bottom: 20px">
         <div class="navbar">
             <ul>
-                <li><a href="Main.jsp"> Home </a></li>
-                <li><a href="Shopping.jsp"> Browse </a></li>
+                <li><a href="main.jsp"> Home </a></li>
+                <li><a href="shopping.jsp"> Browse </a></li>
                 <li><a href="#"> Account </a></li>
-                <li><a href="Support.jsp"> Support </a></li>
-                <li><a href="Logout.jsp"> Logout </a></li>
+                <li><a href="support.jsp"> Support </a></li>
+                <li><a href="logout.jsp"> Logout </a></li>
             </ul>
         </div>
         </header>
 <div style="height: 1800px; background-color: floralwhite">
         <h1> Customer Checkout </h1>   
-        <form action="Confirmation.jsp" method="POST">
+        <form action="confirmation.jsp" method="POST">
         <div style="margin-left: 400px; padding-bottom: 10px;">            
             <h2> Summary </h2>
             <Table class="two"> 
