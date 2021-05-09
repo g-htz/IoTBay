@@ -109,17 +109,17 @@
             </table>
             </div>
             
-        <div style="margin-left: 400px; padding-bottom: 10px;">
+        <div style="margin-left: 400px; padding-bottom: 10px;"> 
             <h2> Shipping Address </h2>
             <table>
                 <tr>
                     <td><input type="radio" id="credit" name="shipping" value="standard" required/></td>
                     <td> Standard Shipping </td> 
-                    <td><img src="images/CC.png" alt="Credit Card" width="70" height="70"></td>
+                    <td><img src="images/normal.jpeg" alt="Credit Card" width="90" height="60"></td>
                     <td> </td>
                     <td><input type="radio" id="vc" name="shipping" value="express"/></td>
                     <td> Express Shipping </td>
-                    <td><img src="images/VC.png" alt="PayPal" width="80" height="50"></td>
+                    <td><img src="images/express.png" alt="PayPal" width="80" height="50"></td>
                 </tr>
             </table>
             
@@ -128,14 +128,14 @@
                 <tr><td> Last Name <input type="text" placeholder="E.g. Smith" name="lastname" style="width: 200%; padding: 10px; margin:8px 0px" required><br></td></tr>
                 <tr><td> Email <input type="email" placeholder="E.g. name@example.com" name="email" style="width:200%; padding:10px; margin:8px 0px" required></td></tr>
                 <tr><td> Address <input type="text" placeholder="Street Address" name="address" style="width:200%; padding:10px; margin:8px 0px" required></td></tr>
-                <tr><td> Country <input type="text" placeholder="Country/city" name="city" style="width:200%; padding:10px; margin:8px 0px" required></td></tr>
+                <tr><td> Suburb <input type="text" placeholder="City" name="suburb" style="width:200%; padding:10px; margin:8px 0px" required></td></tr>
                 <tr><td> State <input type="text" placeholder="State" name="state" style="width:200%; padding:10px; margin:8px 0px;" required></td></tr>
-                <tr><td> Post Code <input type="number" placeholder="Postal / Zip Code" name="postcode" style="width:200%; padding:10px; margin:8px 0px" max="9999" required></td></tr>
-                </table>
-            </div>
+                <tr><td> Country <input type="text" placeholder="Country" name="country" style="width:200%; padding:10px; margin:8px 0px" required></td></tr>
+            </table>
+        </div>
             
-        <div>
-            <input class="button" style="margin-left: 600px; padding-top: " type="submit" id="paymentsent" value="Pay"/>
+        <div style="text-align: center">
+            <input class="button" type="submit" name="paymentsent" value="Pay"/>
         </div>
         </form>
         </div>
