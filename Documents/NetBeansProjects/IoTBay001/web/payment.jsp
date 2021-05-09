@@ -4,6 +4,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title> IoTBay | Checkout </title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
         <link href="css/navbar.css" rel="stylesheet" type="text/css"/>
     </head>
@@ -11,26 +14,32 @@
     <style>
         .two { width : 61%; }
         .two td { text-align: center; padding: 2%;}
-        .two th { border-bottom: 1px solid black; background-color: gainsboro; padding: 2%;}
+        .two th { text-align: center; border-bottom: 1px solid black; background-color: gainsboro; padding: 2%;}
         .two tr:hover {background-color: #f5f5f5;}
-        h2 { text-align: left; text-decoration: overline; padding-bottom: 10px;}
+        .active {
+              background-color: #70eeff;
+              color: #fff;
+              font-weight: bold; }
     </style>
     
     <body>
-        <header style="padding-bottom: 20px">
-        <div class="navbar">
+        <div class="navbar" style="padding-bottom: 60px">
             <ul>
                 <li><a href="main.jsp"> Home </a></li>
                 <li><a href="shopping.jsp"> Browse </a></li>
                 <li><a href="#"> Account </a></li>
                 <li><a href="support.jsp"> Support </a></li>
-                <li><a href="logout.jsp"> Logout </a></li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a href="profile.jsp">My Profile</a></li>
             </ul>
         </div>
-        </header>
-<div style="height: 1800px; background-color: floralwhite">
+        
+        <div style="height: 1850px; background-color: floralwhite">
         <h1> Customer Checkout </h1>   
-        <form action="confirmation.jsp" method="POST">
+        <form center action="confirmation.jsp" method="POST">
+
+ 
+
         <div style="margin-left: 400px; padding-bottom: 10px;">            
             <h2> Summary </h2>
             <Table class="two"> 
@@ -51,10 +60,13 @@
                     <td> $ total amount (quantity*price) </td> 
                 </tr>
             </table>
-        </div>    
-<div style="margin-left: 400px; padding-bottom: 10px;">
+        </div>     
+            
+        <div style="margin-left: 400px; padding-bottom: 10px;">
             <h2> Payment Method </h2>
-            <input type="checkbox"/> <label> Use my last saved payment </label>
+            <input type="checkbox"/> <label> Use the last saved payment </label>
+            
+<!--            if select then fetch customer last saved payment without having them to fill out-->
                     
                 <table>
                     <tr>
@@ -71,13 +83,13 @@
                     </tr>
                 </table>
             
-            <table class="table">
-                <tr><td> First Name <input type="textfield" placeholder="Cardholder First Name" id="cardfname" style="width:200%; padding:10px; margin:8px 0px" required> </td></tr>
-                <tr><td> Last Name <input type="textfield" placeholder="Cardholder Last Name" id="cardlname" style="width:200%; padding:10px; margin:8px 0px" required> </td></tr>
-                <tr><td> Card Number <input type="textfield" placeholder="Card Number"id="cardno"  style="width:200%; padding:10px; margin:8px 0px" maxlength="19" required> </td></tr>
-                <tr><td> Security Code <input type="password" placeholder="Number at the back of the card" id="scode" style="width:200%; padding:10px; margin:8px 0px" maxlength="4" required> </td></tr>
+            <table>
+                <tr><td> First Name <input type="textfield" placeholder="Cardholder First Name" name="cardfname" style="width:200%; padding:10px; margin:8px 0px" required> </td></tr>
+                <tr><td> Last Name <input type="textfield" placeholder="Cardholder Last Name" name="cardlname" style="width:200%; padding:10px; margin:8px 0px" required> </td></tr>
+                <tr><td> Card Number <input type="textfield" placeholder="Card Number" name="cardno"  style="width:200%; padding:10px; margin:8px 0px" maxlength="19" required> </td></tr>
+                <tr><td> Security Code <input type="password" placeholder="Number at the back of the card" name="scode" style="width:200%; padding:10px; margin:8px 0px" maxlength="4" required> </td></tr>
                 <tr><td> Expiration Month 
-                        <select name="month" id="expmonth" required style="width:50%; padding:10px; margin:8px 0px" required>
+                        <select name="expmonth" required style="width:55%; padding:10px; margin:8px 0px" required>
                         <option> Select a Month </option>
                         <option> January </option>
                         <option> February </option>
@@ -93,7 +105,7 @@
                         <option> December </option>
                     </select> </td></tr>
                 <tr><td> Expiration Year 
-                    <select name="year" id="expyear" required style="width:50%; padding:10px; margin:8px 0px" required>
+                    <select name="expyear" required style="width:50%; padding:10px; margin:8px 0px" required>
                         <option> Select a Year </option>    
                         <option> 2021 </option>
                         <option> 2022 </option>
@@ -137,6 +149,7 @@
         <div style="text-align: center">
             <input class="button" type="submit" name="paymentsent" value="Pay"/>
         </div>
+            
         </form>
         </div>
         
@@ -146,4 +159,3 @@
         </div>
     </body>
 </html>
-
