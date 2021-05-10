@@ -71,9 +71,15 @@
                 <th>Manage</th>
             </tr>
             <%
-                int customerLoggedIn = 1;
-                ResultSet ordersResults = st.executeQuery("select * from orders");
+                int customerLoggedIn = 2;
+                String sqlOrderTotal = "select orders.order_id, sum(total_price) as total from orders " + 
+                                       "join ordercombination on orders.order_id = ordercombination.order_id " + 
+                                       "join orderlineitem on orderlineitem.item_id = ordercombination.item_id " + 
+                                       "where customer_id = " + customerLoggedIn + " group by orders.order_id";
+                
+                ResultSet ordersResults = st.executeQuery("select * from orders where customer_id=" + customerLoggedIn);
                 ResultSet customerResults = st2.executeQuery("select * from customer where customer_id=" + customerLoggedIn);
+                ResultSet orderTotal = st3.executeQuery(sqlOrderTotal);
                 
                 customerResults.next();
                 String customerName = customerResults.getString("first_name") + " " + customerResults.getString("last_name");
@@ -88,11 +94,9 @@
                         </td>
                         <td>
                             <%
-                                String sql = "select quantity from orderlineitem where orderlineitem.item_id=" + ordersResults.getString("item_id");
-                                ResultSet orderLineItemResults = st3.executeQuery(sql);
-                                while (orderLineItemResults.next()) {
+                                if (orderTotal.next()) {
                             %>
-                            <%="$" + new DecimalFormat("###,##0.00").format(Double.parseDouble(orderLineItemResults.getString("quantity")))%>
+                                <%="$" + new DecimalFormat("###,##0.00").format(Double.parseDouble(orderTotal.getString("total")))%>
                             <%
                                 }
                             %>
