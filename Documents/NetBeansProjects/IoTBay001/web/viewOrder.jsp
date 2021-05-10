@@ -64,15 +64,17 @@
         <table>
             <tr>
                 <th>Qty.</th>
-                <th>Product</th>
+                <th>Product Name</th>
                 <th>Price Per Unit</th>
                 <th>Total Price</th>
             </tr>
-            <%
-                String sqlQuery = "select * from orders "
-                                + "join orderlineitem on orders.item_id = orderlineitem.item_id "
-                                + "join product on orderlineitem.product_id = product.product_id "
-                                + "where order_id = " + request.getParameter("order_id");
+            <%             
+                int customerLoggedIn = 2;
+                String sqlQuery = "select * from ordercombination " + 
+                                  "join orders on orders.order_id = ordercombination.ORDER_ID " + 
+                                  "join orderlineitem on ordercombination.item_id = orderlineitem.item_id " +
+                                  "join product on product.product_id = orderlineitem.product_id " +
+                                  "where customer_id = " + customerLoggedIn + " and orders.order_id = " + request.getParameter("order_id");
 
                 ResultSet res = st.executeQuery(sqlQuery);
 
