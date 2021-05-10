@@ -70,9 +70,8 @@
             </tr>
             <%             
                 int customerLoggedIn = 2;
-                String sqlQuery = "select * from ordercombination " + 
-                                  "join orders on orders.order_id = ordercombination.ORDER_ID " + 
-                                  "join orderlineitem on ordercombination.item_id = orderlineitem.item_id " +
+                String sqlQuery = "select quantity, name, price_per_unit, (quantity * price_per_unit) as total_price from orders " + 
+                                  "join orderlineitem on orderlineitem.order_id = orders.order_id " +
                                   "join product on product.product_id = orderlineitem.product_id " +
                                   "where customer_id = " + customerLoggedIn + " and orders.order_id = " + request.getParameter("order_id");
 

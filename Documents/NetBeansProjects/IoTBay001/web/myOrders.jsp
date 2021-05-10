@@ -72,9 +72,9 @@
             </tr>
             <%
                 int customerLoggedIn = 2;
-                String sqlOrderTotal = "select orders.order_id, sum(total_price) as total from orders " + 
-                                       "join ordercombination on orders.order_id = ordercombination.order_id " + 
-                                       "join orderlineitem on orderlineitem.item_id = ordercombination.item_id " + 
+                String sqlOrderTotal = "select orders.order_id, sum((quantity * price_per_unit)) as total from orders " +
+                                       "join orderlineitem on orderlineitem.order_id = orders.order_id " + 
+                                       "join product on product.product_id = orderlineitem.product_id "+ 
                                        "where customer_id = " + customerLoggedIn + " group by orders.order_id";
                 
                 ResultSet ordersResults = st.executeQuery("select * from orders where customer_id=" + customerLoggedIn);
