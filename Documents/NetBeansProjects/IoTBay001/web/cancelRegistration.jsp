@@ -11,7 +11,15 @@
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.text.DecimalFormat"%>
 <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
+<%   
+    Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
+    Statement st = con.createStatement();
+%>
 
 <!DOCTYPE html>
 <html>
@@ -21,6 +29,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="Stylesheet" href="css/Style.css">
         <style>
             body {margin:0;}
 
@@ -81,12 +90,32 @@
         <h1>Cancel Registration</h1>
         <div class='mx-5'>
             <h2>Please enter your password if you want to cancel your registration</h2>
-            <div class="form-group">
-                    <input class="form-control" type="password" name="registrationPasswordTf" placeholder="Password" />
+            <form action="main.jsp" method="POST">
+                <div class="form-group">
+                        <input class="form-control" type="password" name="registrationPasswordTf" placeholder="Password" required/>
+                    </div>
+                <h3>I'd like to cancel my registration</h4>
+                <div class="form-group">
+                    <input class="btn btn-default" type="submit" value="Yes" name="registrationBtn" />
+                         <%
+                            
+                             DELETE FROM IOTADMIN.PAYMENT WHERE PAYMENT_ID=(SELECT MAX(PAYMENT_ID) FROM PAYMENT);
+                            String sqlQuery = "delete from customer "
+                                            + "where customer_id = " + request.getParameter("customer_id");
+                                            //+ "where customer_id = " + request.getParameter("order_id");
+//                            String sqlQuery = "delete * from customer "
+//                                            + "where customer_id = " + request.getParameter("customer_id");
+                                            //+ "where customer_id = " + request.getParameter("order_id");
+
+                            ResultSet res = st.executeQuery(sqlQuery);
+
+                        %>
                 </div>
-            <h3>I'd like to cancel my registration</h4>
-                <h5 class="float-left"><a href="logout.jsp">Yes</a></h5>
-                <h5 class="float-left"><a href="profile.jsp">No</a></h5>
+                   
+            </form>
+            <div>
+                <h5 class="float-left"><a class="btn btn-default" href="main.jsp"  type="submit">No</a></h5>
+            </div>
         </div>
     </body>
 </html>
