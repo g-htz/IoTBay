@@ -1,4 +1,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
+<%
+    Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
+    Statement st = con.createStatement();
+%>
+
+ 
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,10 +28,7 @@
         .two td { text-align: center; padding: 2%;}
         .two th { text-align: center; border-bottom: 1px solid black; background-color: gainsboro; padding: 2%;}
         .two tr:hover {background-color: #f5f5f5;}
-        .active {
-              background-color: #70eeff;
-              color: #fff;
-              font-weight: bold; }
+        .active { background-color: #70eeff; color: #fff; font-weight: bold; }
     </style>
     
     <body>
@@ -40,27 +49,33 @@
 
  
 
-        <div style="margin-left: 400px; padding-bottom: 10px;">            
+        <div style="padding-bottom: 10px; margin-left: 400px">           
             <h2> Summary </h2>
-            <Table class="two"> 
-                <tr> 
+            <Table class="two">
+                <tr>
                     <th> Product Description </th>
-                    <th> Quantity </th> 
+                    <th> Quantity </th>
                     <th> Unit Price </th>
                 </tr>
-                
+               
+                <%
+                    try{
+                    String sql = "select * from shoppingcart s inner join outcome oc on s.ORDER_ID = oc.ORDER_ID";
+                    ResultSet resultSet = st.executeQuery(sql);
+                    while(resultSet.next()){
+                %>
                 <tr>
-                    <td> Product Name </td>
-                    <td> Quantity purchased </td>
-                    <td> $ Price per unit </td>
-                </tr>
-                 
-                <tr> <td> </td> 
-                    <td style="font-weight: bold"> Total </td> 
-                    <td> $ total amount (quantity*price) </td> 
-                </tr>
+                    <td> <%=resultSet.getString("PRODUCT_NAME") %> </td>
+                    <td> <%=resultSet.getString("QUANTITY") %> </td>
+                    <td> $<%=resultSet.getString("PRICE_PER_UNIT")%> </td>
+                </tr> <% } con.close();} catch (Exception e) { e.printStackTrace(); } %>
+
+                <tr> <td/>
+                    <th> Total Price </th>
+                    <td> $ Amount </td>
+               
             </table>
-        </div>     
+        </div>   
             
         <div style="margin-left: 400px; padding-bottom: 10px;">
             <h2> Payment Method </h2>
