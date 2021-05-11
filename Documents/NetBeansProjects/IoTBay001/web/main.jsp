@@ -11,6 +11,9 @@
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.ResultSetMetaData"%>
+<%@page import="java.text.DecimalFormat"%>
 <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
 <% 
     String FIRST_NAME = request.getParameter("registrationFirstNameTf");
@@ -24,12 +27,34 @@
     String COUNTRY = request.getParameter("registrationCountryTf");
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
     Statement st = con.createStatement();
-    int i=st.executeUpdate("Insert into customer(FIRST_NAME, LAST_NAME,"
-                            + "EMAIL_ADDRESS, PASSWORD, PHONENO, ADDRESS,"
-                            + "SUBURB, STATE,COUNTRY) "
-                            + "values ('"+FIRST_NAME+"', '"+LAST_NAME+"', '"+EMAIL_ADDRESS+"', '"+PASSWORD+"', "
-                                        +" '"+PHONENO+"', '"+ADDRESS+"', '"+SUBURB+"',"
-                                        + "'"+STATE+"', '"+COUNTRY+"')");
+    Statement st2 = con.createStatement();
+    Statement st3 = con.createStatement();
+    ResultSet customers = st.executeQuery("select * from customer");  
+    int emailCounter = 0;
+    while(customers.next()) {
+        String email = customers.getString("EMAIL_ADDRESS");
+//        System.out.println(email);
+        if(EMAIL_ADDRESS.equals(email)) {
+            emailCounter = emailCounter + 1;
+        }
+        System.out.println(EMAIL_ADDRESS+"1");
+        System.out.println(email+"2");
+        System.out.println(emailCounter);
+        
+    }
+    System.out.println(emailCounter);
+    if(emailCounter == 0){
+        int i=st2.executeUpdate("Insert into customer(FIRST_NAME, LAST_NAME,"
+                                + "EMAIL_ADDRESS, PASSWORD, PHONENO, ADDRESS,"
+                                + "SUBURB, STATE,COUNTRY) "
+                                + "values ('"+FIRST_NAME+"', '"+LAST_NAME+"', '"+EMAIL_ADDRESS+"', '"+PASSWORD+"', "
+                                            +" '"+PHONENO+"', '"+ADDRESS+"', '"+SUBURB+"',"
+                                            + "'"+STATE+"', '"+COUNTRY+"')");
+    }
+    
+    ResultSet customerResults = st3.executeQuery("select * from customer WHERE email_address=" + "EMAIL_ADDRESS");
+    customers.next();
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -39,7 +64,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="Stylesheet" href="css/navbar.css">
+        <link rel="Stylesheet" href="css/Style.css">
     </head>
     <body>
         <ul>
@@ -48,13 +73,30 @@
             <li class="dropdown">
                 <a class="dropbtn">Account </a>
                 <div class="dropdown-content">
+            <%  int addv = 0;
+                while (customerResults.next()) {
+                    System.out.println("hi there");
+                    addv++;
+                    System.out.println(customerResults.getString("EMAIL_ADDRESS"));
+                    System.out.println(EMAIL_ADDRESS);
+                    if(customerResults.getString("EMAIL_ADDRESS").equals(EMAIL_ADDRESS))
+                    {
+                        
+            %>
                     <a href="createOrder.jsp">Create Order</a>
-                    <a href="viewOrders.jsp">Previous Orders</a>
+                    <a href="myOrders.jsp?customer_id=<%=customerResults.getString("customer_id")%>">Previous Orders</a>
                 </div>
             </li>
             <li><a href="#">Support</a></li>
-            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
-            <li class="float-right"><a href="logout.jsp">Logout</a></li>
+            
+                
+                        <h2><%=customerResults.getString("customer_id")%></h2>
+                        <li class="float-right"><a href="profile.jsp?customer_id=<%=customerResults.getString("customer_id")%>">My Profile</a></li>
+                        <li class="float-right"><a href="logout.jsp">Logout</a></li>
+            <%
+                }
+             }
+            %>
         </ul>
 
         <h1>Dashboard</h1>
