@@ -24,8 +24,6 @@
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
     Statement st = con.createStatement();
     
-    int customerLoggedIn = 2;
-    
     String order_id = "";
     for (Cookie c : request.getCookies()) {
         if (c.getName().equals("order_id") && c.getValue().length() > 0) {
@@ -73,7 +71,6 @@
         <div class='col-md-4 my-auto' style='margin: 0 auto;'>
             <h1 class='align-middle' style='text-align: center;'>Cart</h1>
             <table>
-                
                 <%
                     if (request.getParameter("ro") != null && request.getParameter("rp") != null && request.getParameter("rq") != null) {
                         int i = st.executeUpdate("delete from orderlineitem where order_id = " + request.getParameter("ro") + 
@@ -89,6 +86,8 @@
                                 break;
                             }
                         }
+                        
+                        boolean needsRefresh = false;
                         
                         if (cookie != null) {
                             String newCookie = cookie.getValue();
@@ -112,38 +111,44 @@
                                                           + " order by date_ordered DESC fetch first 1 rows only");
                             res.next();
                             response.addCookie(new Cookie("order_id", res.getString("order_id")));
+                            
+                            needsRefresh = true;
                         }
                         
-                        ResultSet res = st.executeQuery("select * from product where product_id = " + request.getParameter("p"));
-                        res.next();
+                        if (!needsRefresh) {
+                            ResultSet res = st.executeQuery("select * from product where product_id = " + request.getParameter("p"));
+                            res.next();
                         
-                        int i = st.executeUpdate("insert into orderlineitem (order_id, product_id, quantity) " +
-                                                 "values (" + order_id + ", " + request.getParameter("p") + ", " + request.getParameter("q") + ")");
+                            int i = st.executeUpdate("insert into orderlineitem (order_id, product_id, quantity) " +
+                                                     "values (" + order_id + ", " + request.getParameter("p") + ", " + request.getParameter("q") + ")");
+                        } 
                     }
-
-                    ResultSet res = st.executeQuery("SELECT * FROM ORDERLINEITEM join product on product.product_id = orderlineitem.product_id where order_id = " + order_id);
 
                     int rows = 0;
-                    while (res.next()) {
-                        rows++;
-                    %>
-                    <tr>
-                        <td style="width: 5%"><%=res.getString("quantity")%></td>
-                        <td style="width: 90%"><%=res.getString("product_name")%></td>
-                        <td>$</td>
-                        <td style="text-align: right"><%=new DecimalFormat("###,##0.00").format(Double.parseDouble(res.getString("price_per_unit")) * 
-                                                                                                Double.parseDouble(res.getString("quantity")))%></td>
-                        <td><a href="cart.jsp?ro=<%=res.getString("order_id")%>&rp=<%=res.getString("product_id")%>&rq=<%=res.getString("quantity")%>">Remove</a></td>
-                    </tr>
-                    <%
+                    if (!order_id.equals("")) {
+                        ResultSet res = st.executeQuery("SELECT * FROM ORDERLINEITEM join product on product.product_id = orderlineitem.product_id where order_id = " + order_id);
+                        
+                        while (res.next()) {
+                            rows++;
+                        %>
+                        <tr>
+                            <td style="width: 5%"><%=res.getString("quantity")%></td>
+                            <td style="width: 90%"><%=res.getString("product_name")%></td>
+                            <td>$</td>
+                            <td style="text-align: right"><%=new DecimalFormat("###,##0.00").format(Double.parseDouble(res.getString("price_per_unit")) * 
+                                                                                                    Double.parseDouble(res.getString("quantity")))%></td>
+                            <td><a href="cart.jsp?ro=<%=res.getString("order_id")%>&rp=<%=res.getString("product_id")%>&rq=<%=res.getString("quantity")%>">Remove</a></td>
+                        </tr>
+                        <%
+                        }
                     }
-
+                        
                     if (rows == 0) {
                     %>
                         <h5 style="text-align: center">Cart is empty...</h5>
                         <h5 style="text-align: center"><a href="products.jsp">Click here</a> to check our catalogue!</h5>
                     <%
-                    }
+                        }
                     %>
             </table>
             <form action="createOrder.jsp" method="POST">
