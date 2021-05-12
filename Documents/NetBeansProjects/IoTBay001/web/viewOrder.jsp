@@ -68,12 +68,12 @@
                 <th>Price Per Unit</th>
                 <th>Total Price</th>
             </tr>
-            <%             
-                int customerLoggedIn = 2;
-                String sqlQuery = "select quantity, name, price_per_unit, (quantity * price_per_unit) as total_price from orders " + 
+            <%    
+                String sqlQuery = "select quantity, product_name, price_per_unit, (quantity * price_per_unit) as total_price from orders " + 
                                   "join orderlineitem on orderlineitem.order_id = orders.order_id " +
                                   "join product on product.product_id = orderlineitem.product_id " +
-                                  "where customer_id = " + customerLoggedIn + " and orders.order_id = " + request.getParameter("order_id");
+                                  "where customer_id = " + request.getSession().getAttribute("customer_id") + " " +
+                                  "and orders.order_id = " + request.getParameter("order_id");
 
                 ResultSet res = st.executeQuery(sqlQuery);
 
@@ -81,9 +81,9 @@
             %>
             <tr>
                 <td><%=res.getString("quantity")%></td>
-                <td><%=res.getString("name")%></td>
-                <td><%=res.getString("price_per_unit")%></td>
-                <td><%=res.getString("total_price")%></td>
+                <td><%=res.getString("product_name")%></td>
+                <td><%="$" + new DecimalFormat("###,##0.00").format(Double.parseDouble(res.getString("price_per_unit")))%></td>
+                <td><%="$" + new DecimalFormat("###,##0.00").format(Double.parseDouble(res.getString("total_price")))%></td>
             </tr>
             <%
                 }
