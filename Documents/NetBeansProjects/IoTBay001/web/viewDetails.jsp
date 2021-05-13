@@ -5,13 +5,21 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.text.DecimalFormat"%>
 <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
+<%   
+    Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
+    Statement st = con.createStatement();
+%>
 
 <!DOCTYPE html>
 <html>
@@ -83,17 +91,45 @@
 
         <h1 class="ml-5">My Details</h1>
         <div class='mx-5'>
-            <h4>Table/precompleted form with update buttons will go here</h4>
-<!--            <div class='card-group'>
-                <div class='card card-profile mx-1'>
-                    <img src="https://images.unsplash.com/photo-1517596107285-5ce3dd0f61df?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class='card-img-top'>
-                    <h4 style='text-align: center;'><a href="viewDetails.jsp">View my registration details</h4>
-                </div>
-                <div class='card card-profile mx-1'>
-                    <img src="https://images.unsplash.com/photo-1616759197490-d2656036df6d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80" class='card-img-top'>
-                    <h4 style='text-align: center;'><a href="viewActivity.jsp">View my activity</h4>
-                </div>
-            </div>-->
+        <!--<h4>Order <%=request.getParameter("customer_id")%></h4>-->
+        <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email Address</th>
+                <th>Password</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+                <th>Suburb</th>
+                <th>State</th>
+                <th>Country</th>
+            </tr>
+            <%
+                String sqlQuery = "select * from customer "
+                                + "where customer_id = " + request.getParameter("customer_id");
+                                //+ "where customer_id = " + request.getParameter("order_id");
+
+                ResultSet res = st.executeQuery(sqlQuery);
+
+                while (res.next()) {
+                    %>
+                        <tr>
+                            <td><%=res.getString("first_name")%></td>
+                            <td><%=res.getString("last_name")%></td>
+                            <td><%=res.getString("email_address")%></td>
+                            <td>********</td>
+                            <td><%=res.getString("phoneno")%></td>
+                            <td><%=res.getString("address")%></td>
+                            <td><%=res.getString("suburb")%></td>
+                            <td><%=res.getString("state")%></td>
+                            <td><%=res.getString("country")%></td>
+                        </tr>
+                    <%
+                }
+            %>
+        </table>
+            
+            </div>
         </div>
         <div class='mx-5 pt-5'>
             <h4 class="float-left"><a href="profile.jsp">Return to profile</a></h4>
