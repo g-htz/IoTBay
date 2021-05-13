@@ -98,16 +98,11 @@
                 <div class="form-group">
                     <input class="btn btn-default" type="submit" value="Yes" name="registrationBtn" />
                          <%
-                            
-                             DELETE FROM IOTADMIN.PAYMENT WHERE PAYMENT_ID=(SELECT MAX(PAYMENT_ID) FROM PAYMENT);
-                            String sqlQuery = "delete from customer "
-                                            + "where customer_id = " + request.getParameter("customer_id");
-                                            //+ "where customer_id = " + request.getParameter("order_id");
-//                            String sqlQuery = "delete * from customer "
+                           String sqlQuery = "delete from iotadmin.customer "
+                                            + "where customer_id = " + 5;
 //                                            + "where customer_id = " + request.getParameter("customer_id");
-                                            //+ "where customer_id = " + request.getParameter("order_id");
 
-                            ResultSet res = st.executeQuery(sqlQuery);
+                            ResultSet res = st.updateQuery(sqlQuery);
 
                         %>
                 </div>
