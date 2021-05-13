@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="Stylesheet" href="css/style.css">
+        <link rel="Stylesheet" href="css/Style.css">
         <title>Logout Page</title>
     </head>
     
