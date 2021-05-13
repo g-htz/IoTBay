@@ -86,11 +86,11 @@
             <div class='card-group'>
                 <div class='card card-profile mx-1'>
                     <img src="https://images.unsplash.com/photo-1517596107285-5ce3dd0f61df?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class='card-img-top'>
-                    <h4 style='text-align: center;'><a href="viewDetails.jsp">View my registration details</h4>
+                    <h4 style='text-align: center;'><a href="viewDetails.jsp?customer_id=3">View my registration details</h4>
                 </div>
                 <div class='card card-profile mx-1'>
                     <img src="https://images.unsplash.com/photo-1616759197490-d2656036df6d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80" class='card-img-top'>
-                    <h4 style='text-align: center;'><a href="viewActivity.jsp">View my activity</h4>
+                    <h4 style='text-align: center;'><a href="viewActivity.jsp?customer_id=3">View my activity</h4>
                 </div>
             </div>
         </div>
