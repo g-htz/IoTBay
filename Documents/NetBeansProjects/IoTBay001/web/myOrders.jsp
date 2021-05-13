@@ -31,7 +31,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="Stylesheet" href="css/navbar.css">
+        <link rel="Stylesheet" href="css/Style.css">
     </head>
     
     <style>
@@ -75,7 +75,7 @@
                 String sqlOrderTotal = "select orders.order_id, sum((quantity * price_per_unit)) as total from orders " +
                                        "join orderlineitem on orderlineitem.order_id = orders.order_id " + 
                                        "join product on product.product_id = orderlineitem.product_id "+ 
-                                       "where customer_id = " + customerLoggedIn + " group by orders.order_id";
+                                       "where customer_id = " +customerLoggedIn  + " group by orders.order_id";
                 
                 ResultSet ordersResults = st.executeQuery("select * from orders where customer_id=" + customerLoggedIn);
                 ResultSet customerResults = st2.executeQuery("select * from customer where customer_id=" + customerLoggedIn);
