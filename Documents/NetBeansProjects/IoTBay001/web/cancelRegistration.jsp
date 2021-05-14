@@ -84,13 +84,13 @@
             <li><a href="#">Account</a></li>
             <li><a href="#">Support</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
+            <li class="float-right"><a href="profile.jsp?customer_id=${param.customer_id}">My Profile</a></li>
         </ul>
 
         <h1>Cancel Registration</h1>
         <div class='mx-5'>
             <h2>Please enter your password if you want to cancel your registration</h2>
-            <form action="main.jsp" method="POST">
+            <form action="logoutDelete.jsp" method="POST">
                 <div class="form-group">
                         <input class="form-control" type="password" name="registrationPasswordTf" placeholder="Password" required/>
                     </div>
@@ -98,11 +98,13 @@
                 <div class="form-group">
                     <input class="btn btn-default" type="submit" value="Yes" name="registrationBtn" />
                          <%
-                           String sqlQuery = "delete from iotadmin.customer "
-                                            + "where customer_id = " + 5;
+                             //int value = ${param.customer_id};
+                             int value = Integer.valueOf(request.getParameter("customer_id"));
+                             String sqlQuery = "delete from iotadmin.customer " + "where customer_id=" + value;
 //                                            + "where customer_id = " + request.getParameter("customer_id");
 
-                            ResultSet res = st.updateQuery(sqlQuery);
+                           st.executeUpdate(sqlQuery);
+//                           ResultSet res = st.executeQuery();
 
                         %>
                 </div>
