@@ -43,21 +43,21 @@
     
     <body>
         <ul>
-            <li><a class="active" href="main.jsp">Home</a></li>
+            <li><a class="active" href="main.jsp?customer_id=<%=request.getParameter("customer_id")%>">Home</a></li>
             <li><a href="#">Products</a></li>
             <li class="order-dropdown">
                 <a class="order-btn">Orders</a>
                 <div class="order-content">
-                    <a href="createOrder.jsp">Create Order</a>
-                    <a href="myOrders.jsp">Previous Orders</a>
+                    <a href="createOrder.jsp?customer_id=<%=request.getParameter("customer_id")%>">Create Order</a>
+                    <a href="myOrders.jsp?customer_id=<%=request.getParameter("customer_id")%>">Previous Orders</a>
                 </div>
             </li>
-            <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
+            <li><a href="support.jsp?customer_id=<%=request.getParameter("customer_id")%>">Support</a></li>
+            <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">My Profile</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
         </ul>
         
-        <a href="myOrders.jsp">Back</a>
+        <a href="myOrders.jsp?customer_id=<%=request.getParameter("order_id")%>">Back</a>
                 
         <h1>Order <%=request.getParameter("order_id")%></h1>
         
@@ -72,13 +72,13 @@
                 String sqlQuery = "select quantity, product_name, price_per_unit, (quantity * price_per_unit) as total_price from orders " + 
                                   "join orderlineitem on orderlineitem.order_id = orders.order_id " +
                                   "join product on product.product_id = orderlineitem.product_id " +
-                                  "where customer_id = " + request.getSession().getAttribute("customer_id") + " " +
+                                  "where customer_id =" + request.getParameter("order_id") + " " +
                                   "and orders.order_id = " + request.getParameter("order_id");
 
                 ResultSet res = st.executeQuery(sqlQuery);
 
                 while (res.next()) {
-<<<<<<< Updated upstream
+
             %>
             <tr>
                 <td><%=res.getString("quantity")%></td>
@@ -87,16 +87,6 @@
                 <td><%="$" + new DecimalFormat("###,##0.00").format(Double.parseDouble(res.getString("total_price")))%></td>
             </tr>
             <%
-=======
-                    %>
-                        <tr>
-                            <td><%=res.getString("quantity")%></td>
-                            <td><%=res.getString("name")%></td>
-                            <td><%=res.getString("price_per_unit")%></td>
-                            <td><%=res.getString("total_price")%></td>
-                        </tr>
-                    <%
->>>>>>> Stashed changes
                 }
             %>
         </table>

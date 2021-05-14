@@ -20,8 +20,12 @@
     Statement st = con.createStatement();
     Statement st2 = con.createStatement();
     Statement st3 = con.createStatement();
-    
-    String customer_id = request.getSession().getAttribute("customer_id") + "";
+    request.getSession().setAttribute("customer_id", request.getParameter("customer_id"));
+    request.getSession().setAttribute("logged_in", "true");
+//    String customer_id = (String)request.getSession().getAttribute("customer_id");
+//    String customer_id = ${param.customer_id};
+    int customer_id = Integer.parseInt((String)request.getSession().getAttribute("customer_id"));
+    //int i = st.executeUpdate("Insert into orders(DATE_ORDERED, CUSTOMER_ID, ITEM_ID) values ('2008-11-11', 3, 69)");
 %>
 
 <!DOCTYPE html>
@@ -47,17 +51,17 @@
     
     <body>
         <ul>
-            <li><a class="active" href="main.jsp">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li class="order-dropdown">
-                <a class="order-btn">Orders</a>
-                <div class="order-content">
-                    <a href="createOrder.jsp">Create Order</a>
-                    <a href="myOrders.jsp">Previous Orders</a>
+            <li><a class="active" href="main.jsp?customer_id=<%=request.getParameter("customer_id")%>">Home</a></li>
+            <li><a href="customerProductList.jsp?customer_id=<%=request.getParameter("customer_id")%>">Products</a></li>
+            <li class="dropdown">
+                <a class="dropbtn">Account </a>
+                <div class="dropdown-content">
+                    <a href="createOrder.jsp?customer_id=<%=request.getParameter("customer_id")%>">Create Order</a>
+                    <a href="myOrders.jsp?customer_id=<%=request.getParameter("customer_id")%>">Previous Orders</a>
                 </div>
             </li>
             <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
+            <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">My Profile</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
         </ul>
         

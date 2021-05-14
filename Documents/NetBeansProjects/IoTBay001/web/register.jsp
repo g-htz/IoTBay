@@ -12,7 +12,8 @@
     <body>
         <div class='col-md-3 my-auto' style='margin: 0 auto;'>
             <h1 class='align-middle' style='text-align: center;'>Register</h1>
-            <form action="main.jsp" method="POST">
+            <!--<form action="main.jsp" method="POST">-->
+            <form action="welcome-iot-register.jsp" method="POST">
                 <div class="form-group">
                     <input class="form-control" type="text" name="registrationFirstNameTf" placeholder="First Name" required />
                 </div>

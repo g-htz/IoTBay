@@ -21,57 +21,6 @@
 
 <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
 <% 
-    String FIRST_NAME = request.getParameter("registrationFirstNameTf");
-    String LAST_NAME = request.getParameter("registrationLastNameTf");
-    String EMAIL_ADDRESS = request.getParameter("registrationEmailTf");
-    String PASSWORD = request.getParameter("registrationPhoneTf");
-    String PHONENO = request.getParameter("registrationPhoneTf");
-    String ADDRESS = request.getParameter("registrationAddressTf");
-    String SUBURB = request.getParameter("registrationSuburbTf");
-    String STATE = request.getParameter("registrationStateTf");
-    String COUNTRY = request.getParameter("registrationCountryTf");
-    Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
-    Statement st = con.createStatement();
-    Statement st2 = con.createStatement();
-    Statement st3 = con.createStatement();
-    Statement st4 = con.createStatement();
-    Statement st5 = con.createStatement();
-    ResultSet customers = st.executeQuery("select * from customer");  
-    
-    int emailCounter = 0;
-    
-    String customer_id = (String)request.getSession().getAttribute("customer_id");
-    String logged_in = (String)request.getSession().getAttribute("logged_in");
-    
-    if (logged_in == null) {
-        if (customer_id == null) {
-            while(customers.next()) {
-                String email = customers.getString("EMAIL_ADDRESS");
-                if(EMAIL_ADDRESS.equals(email)) {
-                    emailCounter = emailCounter + 1;
-                }
-            }
-        }
-    
-        if(emailCounter == 0){
-            int i=st2.executeUpdate("Insert into customer(FIRST_NAME, LAST_NAME,"
-                                    + "EMAIL_ADDRESS, PASSWORD, PHONENO, ADDRESS,"
-                                    + "SUBURB, STATE,COUNTRY) "
-                                    + "values ('"+FIRST_NAME+"', '"+LAST_NAME+"', '"+EMAIL_ADDRESS+"', '"+PASSWORD+"', "
-                                                +" '"+PHONENO+"', '"+ADDRESS+"', '"+SUBURB+"',"
-                                                + "'"+STATE+"', '"+COUNTRY+"')");
-        }
-    
-        String sql = "select * from customer WHERE " + (customer_id != null ? "customer_id=" + customer_id : "email_address='" + EMAIL_ADDRESS + "'");
-        ResultSet customerResults = st3.executeQuery(sql);
-    
-        if (customerResults.next()) {
-            if(customerResults.getString("EMAIL_ADDRESS").equals(EMAIL_ADDRESS) || customerResults.getString("customer_id").equals(customer_id)) {
-                request.getSession().setAttribute("customer_id", customerResults.getString("customer_id"));
-                request.getSession().setAttribute("logged_in", "true");
-            }
-        }
-    }
 %>
 <!DOCTYPE html>
 <html>
@@ -84,49 +33,46 @@
         <link rel="Stylesheet" href="css/Style.css">
         <link rel="Stylesheet" href="css/navbar.css">
     </head>
-    <body>
+    <body style="background-color:#f2c9c9;">
+        
+    <!--Copy below updated navbar to your pages as often as possible please!!-->
         <ul>
-            <li><a class="active" href="main.jsp">Home</a></li>
-            <li><a href="#">Products</a></li>
+            <li><a class="active" href="main.jsp?customer_id=<%=request.getParameter("customer_id")%>">Home</a></li>
+            <li><a href="customerProductList.jsp?customer_id=<%=request.getParameter("customer_id")%>">Products</a></li>
             <li class="dropdown">
                 <a class="dropbtn">Account </a>
                 <div class="dropdown-content">
-            <%  int addv = 0;
-                while (customerResults.next()) {
-                    if(customerResults.getString("EMAIL_ADDRESS").equals(EMAIL_ADDRESS))
-                    {
-                        
-            %>
-                    <a href="createOrder.jsp?customer_id=<%=customerResults.getString("customer_id")%>">Create Order</a>
-                    <a href="myOrders.jsp?customer_id=<%=customerResults.getString("customer_id")%>">Previous Orders</a>
+                    <a href="createOrder.jsp?customer_id=<%=request.getParameter("customer_id")%>">Create Order</a>
+                    <a href="myOrders.jsp?customer_id=<%=request.getParameter("customer_id")%>">Previous Orders</a>
                 </div>
             </li>
             <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
+            <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">My Profile</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
         </ul>
+    <!--Navbar ends here!!-->
 
         <h1>Dashboard</h1>
         <div class='mx-5'>
             <div class='card-group'>
                 <div class='card mx-1'>
-                    <img src="https://via.placeholder.com/150" class='card-img-top'>
+                    <img src="https://images.unsplash.com/photo-1504610926078-a1611febcad3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80" class='card-img-top'>
                     <h4 style='text-align: center;'>Featured</h4>
                 </div>
                 <div class='card mx-1'>
-                    <img src="https://via.placeholder.com/150" class='card-img-top'>
+                    <img src="https://images.unsplash.com/photo-1525641964647-eccdf3c13af4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80" class='card-img-top'>
                     <h4 style='text-align: center;'>Browse</h4>
                 </div>
                 <div class='card mx-1'>
-                    <img src="https://via.placeholder.com/150" class='card-img-top'>
+                    <img src="https://images.unsplash.com/photo-1557318041-1ce374d55ebf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class='card-img-top'>
                     <h4 style='text-align: center;'>FAQs</h4>
                 </div>
                 <div class='card mx-1'>
-                    <img src="https://via.placeholder.com/150" class='card-img-top'>
+                    <img src="https://images.unsplash.com/photo-1572017436980-94e258a8b72d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class='card-img-top'>
                     <h4 style='text-align: center;'>Account</h4>
                 </div>
                 <div class='card mx-1'>
-                    <img src="https://via.placeholder.com/150" class='card-img-top'>
+                    <img src="https://images.unsplash.com/photo-1558687660-082f33c1492a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=539&q=80" class='card-img-top'>
                     <h4 style='text-align: center;'>Help</h4>
                 </div>
             </div>

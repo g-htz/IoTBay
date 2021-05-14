@@ -81,12 +81,18 @@
     </head>
     <body>
         <ul>
-            <li><a class="active" href="main.jsp?customer_id=${param.customer_id}">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Account</a></li>
-            <li><a href="#">Support</a></li>
+            <li><a class="active" href="main.jsp">Home</a></li>
+            <li><a href="customerProductList.jsp?customer_id=<%=request.getParameter("customer_id")%>">Products</a></li>
+            <li class="dropdown">
+                <a class="dropbtn">Account </a>
+                <div class="dropdown-content">
+                    <a href="createOrder.jsp?customer_id=<%=request.getParameter("customer_id")%>">Create Order</a>
+                    <a href="myOrders.jsp?customer_id=<%=request.getParameter("customer_id")%>">Previous Orders</a>
+                </div>
+            </li>
+            <li><a href="support.jsp">Support</a></li>
+            <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">My Profile</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <li class="float-right"><a href="profile.jsp?customer_id=${param.customer_id}">My Profile</a></li>
         </ul>
 
         <h1 class="ml-5">My Details</h1>
@@ -132,7 +138,8 @@
             </div>
         </div>
         <div class='mx-5 pt-5'>
-            <h4 class="float-left"><a href="profile.jsp?customer_id=${param.customer_id}">Return to profile</a></h4>
+            <h4 class="float-left pr-4"><a href="updateDetails.jsp?customer_id=<%=request.getParameter("customer_id")%>">Update My Registration</a></h4>
+            <h4 class="float-left"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">Return to profile</a></h4>
         </div>
     </body>
 </html>
