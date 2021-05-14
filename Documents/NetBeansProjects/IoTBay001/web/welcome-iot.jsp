@@ -5,6 +5,36 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.ResultSetMetaData"%>
+<%@page import="java.text.DecimalFormat"%>
+
+<% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
+<%
+    String customerEmail = request.getParameter("loginEmail");
+    Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
+    Statement st = con.createStatement();
+//    ResultSet loginResults = st.executeQuery("select * from customer WHERE email_address=" + "EMAIL_ADDRESS");
+    ResultSet loginResults = st.executeQuery("select * from customer");
+    while(loginResults.next()) {
+        if(loginResults.getString("email_address").equals(customerEmail))
+        {
+            int session_id = loginResults.getInt("customer_id");
+            System.out.println(session_id);
+        }
+//        else
+//        {
+//            Returns wrong login to main screen
+//            String redirect = "login.jsp";
+//            request.getRequestDispatcher("login.jsp").forward();
+//        }
+    }
+       
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,7 +51,7 @@
             <h1 style="text-align: center;"> Welcome!</h1>
             <h2 style="text-align: center;"> Bringing you to your dashboard now!</h2>
             <h4 style="text-align: center;" id="timer">Redirecting in 5</h4>
-            <a style="display: block; text-align: center;" href="main.jsp">Click here if this page does not change.</a>        
+            <a style="display: block; text-align: center;" href="main.jsp?customer_id=<%=loginResults.getInt("customer_id")%>">Click here if this page does not change.</a>        
         </div>
         
         <script>          
@@ -33,7 +63,7 @@
                     display.textContent = "Redirecting in " + seconds;
 
                     if (--timer < 0) {
-                        window.location.href = "main.jsp";
+                        window.location.href = "main.jsp?customer_id=<%=loginResults.getInt("customer_id")%>";
                     }
                 }, 1000);
             }
