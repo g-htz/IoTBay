@@ -1,4 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    request.getSession().removeAttribute("logged_in");
+    request.getSession().removeAttribute("customer_id");
+%>
+
 <!DOCTYPE html>
 <html>
     <head>

@@ -37,39 +37,41 @@
     Statement st4 = con.createStatement();
     Statement st5 = con.createStatement();
     ResultSet customers = st.executeQuery("select * from customer");  
+    
     int emailCounter = 0;
-    LocalTime time = LocalTime.now();
-    Date date = new Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss"); 
-    while(customers.next()) {
-        String email = customers.getString("EMAIL_ADDRESS");
-        if(EMAIL_ADDRESS.equals(email)) {
-            emailCounter = emailCounter + 1;
-        }
-        
-    }
-    if(emailCounter == 0){
-        int i=st2.executeUpdate("Insert into customer(FIRST_NAME, LAST_NAME,"
-                                + "EMAIL_ADDRESS, PASSWORD, PHONENO, ADDRESS,"
-                                + "SUBURB, STATE,COUNTRY) "
-                                + "values ('"+FIRST_NAME+"', '"+LAST_NAME+"', '"+EMAIL_ADDRESS+"', '"+PASSWORD+"', "
-                                            +" '"+PHONENO+"', '"+ADDRESS+"', '"+SUBURB+"',"
-                                            + "'"+STATE+"', '"+COUNTRY+"')");
-    }
     
-    ResultSet customerResults = st3.executeQuery("select * from customer WHERE email_address=" + "EMAIL_ADDRESS");
-    ResultSet idResults = st4.executeQuery("select * from customer WHERE email_address=" + "EMAIL_ADDRESS");
-    while (idResults.next()) {
-        //System.out.println(customerResults.getString("EMAIL_ADDRESS"));
-        //System.out.println(EMAIL_ADDRESS);
-        if(idResults.getString("EMAIL_ADDRESS").equals(EMAIL_ADDRESS))
-        {
-            int logResults = st5.executeUpdate("Insert into logtime(CUSTOMER_ID)"
-                                                  + "values ("+idResults.getString("customer_id")+")");
+    String customer_id = (String)request.getSession().getAttribute("customer_id");
+    String logged_in = (String)request.getSession().getAttribute("logged_in");
+    
+    if (logged_in == null) {
+        if (customer_id == null) {
+            while(customers.next()) {
+                String email = customers.getString("EMAIL_ADDRESS");
+                if(EMAIL_ADDRESS.equals(email)) {
+                    emailCounter = emailCounter + 1;
+                }
+            }
+        }
+    
+        if(emailCounter == 0){
+            int i=st2.executeUpdate("Insert into customer(FIRST_NAME, LAST_NAME,"
+                                    + "EMAIL_ADDRESS, PASSWORD, PHONENO, ADDRESS,"
+                                    + "SUBURB, STATE,COUNTRY) "
+                                    + "values ('"+FIRST_NAME+"', '"+LAST_NAME+"', '"+EMAIL_ADDRESS+"', '"+PASSWORD+"', "
+                                                +" '"+PHONENO+"', '"+ADDRESS+"', '"+SUBURB+"',"
+                                                + "'"+STATE+"', '"+COUNTRY+"')");
+        }
+    
+        String sql = "select * from customer WHERE " + (customer_id != null ? "customer_id=" + customer_id : "email_address='" + EMAIL_ADDRESS + "'");
+        ResultSet customerResults = st3.executeQuery(sql);
+    
+        if (customerResults.next()) {
+            if(customerResults.getString("EMAIL_ADDRESS").equals(EMAIL_ADDRESS) || customerResults.getString("customer_id").equals(customer_id)) {
+                request.getSession().setAttribute("customer_id", customerResults.getString("customer_id"));
+                request.getSession().setAttribute("logged_in", "true");
+            }
         }
     }
-    customers.next();
-    
 %>
 <!DOCTYPE html>
 <html>
@@ -80,6 +82,7 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="Stylesheet" href="css/Style.css">
+        <link rel="Stylesheet" href="css/navbar.css">
     </head>
     <body>
         <ul>
@@ -98,16 +101,9 @@
                     <a href="myOrders.jsp?customer_id=<%=customerResults.getString("customer_id")%>">Previous Orders</a>
                 </div>
             </li>
-            <li><a href="#">Support</a></li>
-            
-                
-                        <h2><%=customerResults.getString("customer_id")%></h2>
-                        <li class="float-right"><a href="profile.jsp?customer_id=<%=customerResults.getString("customer_id")%>">My Profile</a></li>
-                        <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <%
-                }
-             }
-            %>
+            <li><a href="support.jsp">Support</a></li>
+            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
+            <li class="float-right"><a href="logout.jsp">Logout</a></li>
         </ul>
 
         <h1>Dashboard</h1>

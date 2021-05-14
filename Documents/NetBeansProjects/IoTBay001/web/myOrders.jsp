@@ -20,6 +20,8 @@
     Statement st = con.createStatement();
     Statement st2 = con.createStatement();
     Statement st3 = con.createStatement();
+    
+    String customer_id = (String)request.getSession().getAttribute("customer_id");
     //int i = st.executeUpdate("Insert into orders(DATE_ORDERED, CUSTOMER_ID, ITEM_ID) values ('2008-11-11', 3, 69)");
 %>
 
@@ -71,14 +73,17 @@
                 <th>Manage</th>
             </tr>
             <%
-                int customerLoggedIn = 2;
                 String sqlOrderTotal = "select orders.order_id, sum((quantity * price_per_unit)) as total from orders " +
                                        "join orderlineitem on orderlineitem.order_id = orders.order_id " + 
                                        "join product on product.product_id = orderlineitem.product_id "+ 
+<<<<<<< HEAD
                                        "where customer_id = " +customerLoggedIn  + " group by orders.order_id";
+=======
+                                       "where customer_id = " + customer_id + " group by orders.order_id";
+>>>>>>> d407b7b975275278e901ffaed21a0cf3ff3e2533
                 
-                ResultSet ordersResults = st.executeQuery("select * from orders where customer_id=" + customerLoggedIn);
-                ResultSet customerResults = st2.executeQuery("select * from customer where customer_id=" + customerLoggedIn);
+                ResultSet ordersResults = st.executeQuery("select * from orders where customer_id=" + customer_id);
+                ResultSet customerResults = st2.executeQuery("select * from customer where customer_id=" + customer_id);
                 ResultSet orderTotal = st3.executeQuery(sqlOrderTotal);
                 
                 customerResults.next();
@@ -89,9 +94,7 @@
                     <tr>
                         <td><%=ordersResults.getString("order_id")%></td>
                         <td><%=ordersResults.getString("date_ordered")%></td>
-                        <td>
-                            <%=customerName%>
-                        </td>
+                        <td><%=customerName%></td>
                         <td>
                             <%
                                 if (orderTotal.next()) {
