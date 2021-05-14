@@ -135,6 +135,7 @@ String productName=(request.getParameter("search_product")).toLowerCase();
 <td>Total Quantity</td>
 <td>Price Per Unit ($)</td>
 <td>Product Type</td>
+<td>Add to order</td>
 </tr>
 <%
 try{
@@ -148,6 +149,7 @@ while(resultSet.next()){
 <td><%=resultSet.getString("total_quantity") %></td>
 <td><%=resultSet.getString("price_per_unit") %></td>
 <td><%=resultSet.getString("product_type") %></td>
+<td><a href="addToOrder.jsp?product_id=<%=resultSet.getString("product_id") %>">View</a></td>
 </tr>
 <%
 i++;
