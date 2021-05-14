@@ -81,12 +81,12 @@
     </head>
     <body>
         <ul>
-            <li><a class="active" href="#">Home</a></li>
+            <li><a class="active" href="main.jsp?customer_id=${param.customer_id}">Home</a></li>
             <li><a href="#">Products</a></li>
             <li><a href="#">Account</a></li>
             <li><a href="#">Support</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
+            <li class="float-right"><a href="profile.jsp?customer_id=${param.customer_id}">My Profile</a></li>
         </ul>
 
         <h1 class="ml-5">My Details</h1>
@@ -132,7 +132,7 @@
             </div>
         </div>
         <div class='mx-5 pt-5'>
-            <h4 class="float-left"><a href="profile.jsp">Return to profile</a></h4>
+            <h4 class="float-left"><a href="profile.jsp?customer_id=${param.customer_id}">Return to profile</a></h4>
         </div>
     </body>
 </html>
