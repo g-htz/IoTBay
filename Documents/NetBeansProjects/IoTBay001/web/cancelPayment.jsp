@@ -27,7 +27,7 @@
     </head>
     
     <style>
-        body {​​​​​​​ background-image: url('css/background.png'); }​​​​​​​
+        body {​​​​​​​background-image: url('css/background.png'); }​​​​​​​
     </style>
     
     <body>
