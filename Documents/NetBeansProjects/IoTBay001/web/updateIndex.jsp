@@ -180,7 +180,7 @@ while(resultSet.next()){
 <td><%=resultSet.getString("price_per_unit") %></td>
 <td><%=resultSet.getString("product_type") %></td>
 <td><%=resultSet.getString("supplier_id") %></td>
-<td class="updateBtn"><a href="update.jsp?product_id=<%=resultSet.getString("product_id")%>">UPDATE</a></td>
+<td class="updateBtn"><a href="update.jsp?product_id=<%=resultSet.getString("product_id")%>">Update</a></td>
 </tr>
 <%
 }
