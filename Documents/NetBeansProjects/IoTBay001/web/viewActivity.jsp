@@ -11,8 +11,13 @@
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.text.DecimalFormat"%>
 <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
-
+<%   
+    Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
+    Statement st = con.createStatement();
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -84,19 +89,31 @@
         <h1 class="ml-5">My Activity</h1>
         <div class='mx-5'>
             <h4>Registration log table will go here</h4>
-<!--            <div class='card-group'>
-                <div class='card card-profile mx-1'>
-                    <img src="https://images.unsplash.com/photo-1517596107285-5ce3dd0f61df?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class='card-img-top'>
-                    <h4 style='text-align: center;'><a href="viewDetails.jsp">View my registration details</h4>
-                </div>
-                <div class='card card-profile mx-1'>
-                    <img src="https://images.unsplash.com/photo-1616759197490-d2656036df6d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80" class='card-img-top'>
-                    <h4 style='text-align: center;'><a href="viewActivity.jsp">View my activity</h4>
-                </div>
-            </div>-->
+                <table>
+                    <tr>
+                        <th>Date Logged In</th>
+                        <th>Time</th>
+                    </tr>
+                <%
+                    String sqlQuery = "select * from logtime "
+                                    + "where customer_id = " + request.getParameter("customer_id");
+                                    //+ "where customer_id = " + request.getParameter("order_id");
+
+                    ResultSet res = st.executeQuery(sqlQuery);
+
+                    while (res.next()) {
+                        %>
+                            <tr>
+                                <td><%=res.getString("date_log")%></td>
+                                <td><%=res.getString("time_log")%></td>
+                            </tr>
+                        <%
+                    }
+                %>
+            </table>
         </div>
         <div class='mx-5 pt-5'>
-            <h4 class="float-left"><a href="/profile.jsp">Return to profile</a></h4>
+            <h4 class="float-left"><a href="profile.jsp?customer_id=${param.customer_id}">Return to profile</a></h4>
         </div>
     </body>
 </html>
