@@ -78,6 +78,7 @@
                 ResultSet res = st.executeQuery(sqlQuery);
 
                 while (res.next()) {
+<<<<<<< Updated upstream
             %>
             <tr>
                 <td><%=res.getString("quantity")%></td>
@@ -86,6 +87,16 @@
                 <td><%="$" + new DecimalFormat("###,##0.00").format(Double.parseDouble(res.getString("total_price")))%></td>
             </tr>
             <%
+=======
+                    %>
+                        <tr>
+                            <td><%=res.getString("quantity")%></td>
+                            <td><%=res.getString("name")%></td>
+                            <td><%=res.getString("price_per_unit")%></td>
+                            <td><%=res.getString("total_price")%></td>
+                        </tr>
+                    <%
+>>>>>>> Stashed changes
                 }
             %>
         </table>
