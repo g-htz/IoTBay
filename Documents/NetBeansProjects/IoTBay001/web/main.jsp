@@ -14,6 +14,11 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.ResultSetMetaData"%>
 <%@page import="java.text.DecimalFormat"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalTime"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+
 <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
 <% 
     String FIRST_NAME = request.getParameter("registrationFirstNameTf");
@@ -29,20 +34,20 @@
     Statement st = con.createStatement();
     Statement st2 = con.createStatement();
     Statement st3 = con.createStatement();
+    Statement st4 = con.createStatement();
+    Statement st5 = con.createStatement();
     ResultSet customers = st.executeQuery("select * from customer");  
     int emailCounter = 0;
+    LocalTime time = LocalTime.now();
+    Date date = new Date();
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss"); 
     while(customers.next()) {
         String email = customers.getString("EMAIL_ADDRESS");
-//        System.out.println(email);
         if(EMAIL_ADDRESS.equals(email)) {
             emailCounter = emailCounter + 1;
         }
-        System.out.println(EMAIL_ADDRESS+"1");
-        System.out.println(email+"2");
-        System.out.println(emailCounter);
         
     }
-    System.out.println(emailCounter);
     if(emailCounter == 0){
         int i=st2.executeUpdate("Insert into customer(FIRST_NAME, LAST_NAME,"
                                 + "EMAIL_ADDRESS, PASSWORD, PHONENO, ADDRESS,"
@@ -53,6 +58,16 @@
     }
     
     ResultSet customerResults = st3.executeQuery("select * from customer WHERE email_address=" + "EMAIL_ADDRESS");
+    ResultSet idResults = st4.executeQuery("select * from customer WHERE email_address=" + "EMAIL_ADDRESS");
+    while (idResults.next()) {
+        //System.out.println(customerResults.getString("EMAIL_ADDRESS"));
+        //System.out.println(EMAIL_ADDRESS);
+        if(idResults.getString("EMAIL_ADDRESS").equals(EMAIL_ADDRESS))
+        {
+            int logResults = st5.executeUpdate("Insert into logtime(CUSTOMER_ID)"
+                                                  + "values ("+idResults.getString("customer_id")+")");
+        }
+    }
     customers.next();
     
 %>
@@ -75,15 +90,11 @@
                 <div class="dropdown-content">
             <%  int addv = 0;
                 while (customerResults.next()) {
-                    System.out.println("hi there");
-                    addv++;
-                    System.out.println(customerResults.getString("EMAIL_ADDRESS"));
-                    System.out.println(EMAIL_ADDRESS);
                     if(customerResults.getString("EMAIL_ADDRESS").equals(EMAIL_ADDRESS))
                     {
                         
             %>
-                    <a href="createOrder.jsp">Create Order</a>
+                    <a href="createOrder.jsp?customer_id=<%=customerResults.getString("customer_id")%>">Create Order</a>
                     <a href="myOrders.jsp?customer_id=<%=customerResults.getString("customer_id")%>">Previous Orders</a>
                 </div>
             </li>
