@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="Stylesheet" href="css/style.css">
+        <link rel="Stylesheet" href="css/Style.css">
         <title>Logout Page</title>
     </head>
     
@@ -13,10 +13,10 @@
         }
     </style>
     
-    <body class="body">
-        <h1> Thank you for Visiting IotBay </h1>
+    <body class="body mx-auto">
+        <h1> Bye for now! </h1>
         
-        <h2> You have successfully logged out of IoTBay </h2>
+        <h4> Send us an email via onlineIoTBay@customerservice.com if this was a mistake </h4>
         
         
         <form action="login.jsp" method="POST">
