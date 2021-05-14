@@ -21,8 +21,7 @@
     Statement st2 = con.createStatement();
     Statement st3 = con.createStatement();
     
-    String customer_id = (String)request.getSession().getAttribute("customer_id");
-    //int i = st.executeUpdate("Insert into orders(DATE_ORDERED, CUSTOMER_ID, ITEM_ID) values ('2008-11-11', 3, 69)");
+    String customer_id = request.getSession().getAttribute("customer_id") + "";
 %>
 
 <!DOCTYPE html>
@@ -33,7 +32,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="Stylesheet" href="css/Style.css">
+        <link rel="Stylesheet" href="css/navbar.css">
     </head>
     
     <style>
@@ -64,6 +63,12 @@
         
         <h1>My Orders</h1>
         
+        <form class="mt-4 mb-5 text-center" action="myOrders.jsp" method="POST">
+            <input type="text" name="order_id" placeholder="Order Number"/>
+            <input type="date" name="date_ordered"/>
+            <input type="submit" value="Search"/>
+        </form>
+        
         <table>
             <tr>
                 <th>Order</th>
@@ -72,39 +77,38 @@
                 <th>Order Total</th>
                 <th>Manage</th>
             </tr>
-            <%
-                String sqlOrderTotal = "select orders.order_id, sum((quantity * price_per_unit)) as total from orders " +
-                                       "join orderlineitem on orderlineitem.order_id = orders.order_id " + 
-                                       "join product on product.product_id = orderlineitem.product_id "+ 
-<<<<<<< HEAD
-                                       "where customer_id = " +customerLoggedIn  + " group by orders.order_id";
-=======
-                                       "where customer_id = " + customer_id + " group by orders.order_id";
->>>>>>> d407b7b975275278e901ffaed21a0cf3ff3e2533
+            <%              
+                String searchCriteria = "";
                 
-                ResultSet ordersResults = st.executeQuery("select * from orders where customer_id=" + customer_id);
-                ResultSet customerResults = st2.executeQuery("select * from customer where customer_id=" + customer_id);
-                ResultSet orderTotal = st3.executeQuery(sqlOrderTotal);
+                String order_id = request.getParameter("order_id");
+                String date_ordered = request.getParameter("date_ordered");
                 
-                customerResults.next();
-                String customerName = customerResults.getString("first_name") + " " + customerResults.getString("last_name");
+                if (order_id != null && !order_id.equals(""))
+                    searchCriteria = "and orders.order_id = " + order_id;
+                if (date_ordered != null && !date_ordered.equals(""))
+                    searchCriteria = "and date_ordered = '" + date_ordered + "'";
                 
-                while (ordersResults.next()) {
+                String sql = "select distinct orders.order_id, date_ordered, first_name, last_name, total_price from orders "
+                        + "join outcome on outcome.order_id = orders.order_id "
+                        + "join orderlineitem on orderlineitem.order_id = orders.order_id "
+                        + "join product on product.product_id = orderlineitem.product_id "
+                        + "join customer on customer.customer_id = orders.customer_id "
+                        + "where customer.customer_id = " + customer_id + " " + searchCriteria + " order by orders.order_id";
+                
+                System.out.println(sql);
+                
+                ResultSet res = st.executeQuery(sql);
+                
+                while (res.next()) {
             %>
                     <tr>
-                        <td><%=ordersResults.getString("order_id")%></td>
-                        <td><%=ordersResults.getString("date_ordered")%></td>
-                        <td><%=customerName%></td>
+                        <td><%=res.getString("order_id")%></td>
+                        <td><%=res.getString("date_ordered")%></td>
+                        <td><%=res.getString("first_name") + " " + res.getString("last_name")%></td>
                         <td>
-                            <%
-                                if (orderTotal.next()) {
-                            %>
-                                <%="$" + new DecimalFormat("###,##0.00").format(Double.parseDouble(orderTotal.getString("total")))%>
-                            <%
-                                }
-                            %>
+                            <%="$" + new DecimalFormat("###,##0.00").format(Double.parseDouble(res.getString("total_price")))%>
                         </td>
-                        <td><a href="viewOrder.jsp?order_id=<%=ordersResults.getString("order_id")%>">View Order</a></td>
+                        <td><a href="viewOrder.jsp?order_id=<%=res.getString("order_id")%>">View Order</a></td>
                     </tr>
             <%
                 }
