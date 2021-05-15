@@ -28,7 +28,6 @@ ps.setString(1,product_name);
 ps.setInt(2, total_quantity);
 ps.setInt(3, price_per_unit);
 ps.setString(4, product_type);
-ps.setString(5, product_type);
 int i = ps.executeUpdate();
 if(i > 0)
 {
