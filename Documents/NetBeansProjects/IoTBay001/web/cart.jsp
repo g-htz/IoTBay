@@ -25,11 +25,47 @@
     Statement st = con.createStatement();
     
     String order_id = "";
-    for (Cookie c : request.getCookies()) {
-        if (c.getName().equals("order_id") && c.getValue().length() > 0) {
-            order_id = c.getValue();
-            break;
-        }
+    String customer_id = request.getSession().getAttribute("customer_id") + "";
+    
+    System.out.println("cid: " + customer_id);
+    
+    // check if a new order needs to be created
+    ResultSet res = st.executeQuery("select * from orders where order_id not in (select order_id from payment) and customer_id = " + customer_id);
+    
+    if (res.next()) {
+        System.out.println("oid: " + res.getString("order_id"));
+        order_id = res.getString("order_id");
+    } else {
+        System.out.println("need to create an oid");
+        
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        String date_ordered = date.format(new Date());
+        
+        st.executeUpdate("insert into orders (date_ordered, customer_id) values ('" + date_ordered + "', " + customer_id + ")");
+        
+        // refresh page
+        %><script>location.replace("cart.jsp")</script><%
+    }
+    
+    // check if item needs to be added
+    String product_id = request.getParameter("p");
+    String quantity = request.getParameter("q");
+    
+    if (product_id != null && quantity != null) {
+        System.out.println("item needs to be added");
+        st.executeUpdate("insert into orderlineitem (order_id, product_id, quantity) values (" + order_id + ", " + product_id + ", " + quantity + ")");       
+        
+        // refresh page
+        %><script>location.replace("cart.jsp")</script><%
+    }
+    
+    // check if item needs to be removed
+    String removeProduct = request.getParameter("rp");
+    String removeQuantity = request.getParameter("rq");
+    
+    if (removeProduct != null && removeQuantity != null) {
+        System.out.println("item needs to be removed");
+        st.executeUpdate("delete from orderlineitem where order_id = " + order_id + " and product_id = " + removeProduct + " and quantity = " + removeQuantity);
     }
 %>
 
@@ -55,7 +91,7 @@
     <body>
         <ul>
             <li><a class="active" href="main.jsp">Home</a></li>
-            <li><a href="products.jsp">Products</a></li>
+            <li><a href="customerProductList.jsp">Products</a></li>
             <li class="order-dropdown">
                 <a class="order-btn">Orders</a>
                 <div class="order-content">
@@ -72,61 +108,12 @@
             <h1 class='align-middle' style='text-align: center;'>Cart</h1>
             <table>
                 <%
-                    if (request.getParameter("ro") != null && request.getParameter("rp") != null && request.getParameter("rq") != null) {
-                        int i = st.executeUpdate("delete from orderlineitem where order_id = " + request.getParameter("ro") + 
-                                                 " and product_id = " + request.getParameter("rp") + 
-                                                 " and quantity = " + request.getParameter("rq"));
-                    }
                     
-                    if (request.getParameter("p") != null && request.getParameter("q") != null) {
-                        Cookie cookie = null;
-                        for (Cookie c : request.getCookies()) {
-                            if (c.getName().equals("cart") && c.getValue().length() > 0) {
-                                cookie = c;
-                                break;
-                            }
-                        }
-                        
-                        boolean needsRefresh = false;
-                        
-                        if (cookie != null) {
-                            String newCookie = cookie.getValue();
-                            
-                            cookie.setMaxAge(0);
-                            cookie.setPath("/");
-                            response.addCookie(cookie);
-
-                            response.addCookie(new Cookie("cart", cookie.getValue() + " " + request.getParameter("p")));
-                            
-                        } else {
-                            response.addCookie(new Cookie("cart", request.getParameter("p")));
-                            
-                            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                            String formattedDate = df.format(new Date());
-                            
-                            int i = st.executeUpdate("insert into orders (date_ordered, customer_id) " +
-                                                     "values ('" + formattedDate + "', " + request.getSession().getAttribute("customer_id") + ")");
-                            
-                            ResultSet res = st.executeQuery("select * from orders where customer_id = " + request.getSession().getAttribute("customer_id")
-                                                          + " order by date_ordered DESC fetch first 1 rows only");
-                            res.next();
-                            response.addCookie(new Cookie("order_id", res.getString("order_id")));
-                            
-                            needsRefresh = true;
-                        }
-                        
-                        if (!needsRefresh) {
-                            ResultSet res = st.executeQuery("select * from product where product_id = " + request.getParameter("p"));
-                            res.next();
-                        
-                            int i = st.executeUpdate("insert into orderlineitem (order_id, product_id, quantity) " +
-                                                     "values (" + order_id + ", " + request.getParameter("p") + ", " + request.getParameter("q") + ")");
-                        } 
-                    }
 
                     int rows = 0;
                     if (!order_id.equals("")) {
-                        ResultSet res = st.executeQuery("SELECT * FROM ORDERLINEITEM join product on product.product_id = orderlineitem.product_id where order_id = " + order_id);
+                        //ResultSet res = st.executeQuery("SELECT * FROM ORDERLINEITEM join product on product.product_id = orderlineitem.product_id where order_id = " + order_id);
+                        res = st.executeQuery("select * from shoppingcart where order_id = " + order_id);
                         
                         while (res.next()) {
                             rows++;
@@ -137,7 +124,7 @@
                             <td>$</td>
                             <td style="text-align: right"><%=new DecimalFormat("###,##0.00").format(Double.parseDouble(res.getString("price_per_unit")) * 
                                                                                                     Double.parseDouble(res.getString("quantity")))%></td>
-                            <td><a href="cart.jsp?ro=<%=res.getString("order_id")%>&rp=<%=res.getString("product_id")%>&rq=<%=res.getString("quantity")%>">Remove</a></td>
+                            <td><a href="cart.jsp?rp=<%=res.getString("product_id")%>&rq=<%=res.getString("quantity")%>">Remove</a></td>
                         </tr>
                         <%
                         }
@@ -146,7 +133,7 @@
                     if (rows == 0) {
                     %>
                         <h5 style="text-align: center">Cart is empty...</h5>
-                        <h5 style="text-align: center"><a href="products.jsp">Click here</a> to check our catalogue!</h5>
+                        <h5 style="text-align: center"><a href="customerProductList.jsp">Click here</a> to check our catalogue!</h5>
                     <%
                         }
                     %>
@@ -154,7 +141,7 @@
             <form action="createOrder.jsp" method="POST">
                 <div class="mt-2 mr-2" style="text-align: right">
                     <input type="submit" class="btn btn-default bg-primary text-white mr-2" value="Buy Now"/>
-                    <a class="btn btn-default bg-light" style="color: #000" href="products.jsp">Continue Shopping</a>
+                    <a class="btn btn-default bg-light" style="color: #000" href="customerProductList.jsp">Continue Shopping</a>
                 </div>                        
             </form>
         </div>
