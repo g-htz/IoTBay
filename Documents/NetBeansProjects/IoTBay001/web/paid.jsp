@@ -1,4 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    request.getSession().removeAttribute("order_id");
+%>
 <!DOCTYPE html>
 <html>
     <head>
