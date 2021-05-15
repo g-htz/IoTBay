@@ -22,13 +22,12 @@ int productID = Integer.parseInt(product_id);
 try
 {
 connection=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
-String sql="Update product set product_name=?,total_quantity=?,price_per_unit=?,product_type=?,image=? where product_id="+productID;
+String sql="Update product set product_name=?,total_quantity=?,price_per_unit=?,product_type=? where product_id="+productID;
 ps = connection.prepareStatement(sql);
 ps.setString(1,product_name);
 ps.setInt(2, total_quantity);
 ps.setInt(3, price_per_unit);
 ps.setString(4, product_type);
-ps.setString(5, product_type);
 int i = ps.executeUpdate();
 if(i > 0)
 {
