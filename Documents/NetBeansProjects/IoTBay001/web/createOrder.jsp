@@ -19,6 +19,49 @@
     Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
     Statement st = con.createStatement();
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+        reduce stock of products
+    
+        clear shoppingcart view
+    
+        add button for payment page or link right to it
+    */
+    
+    
+    
+    
+    
+    
+    String order_id = request.getSession().getAttribute("order_id") + "";
+    String customer_id = request.getSession().getAttribute("customer_id") + "";
+    
+    if (order_id != null) {
+        System.out.println("someting wong");
+    } else {
+        System.out.println("order_id not set");
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
     String order_id = "";
     for (Cookie c : request.getCookies()) {
         if (c.getName().equals("order_id") && c.getValue().length() > 0) {
@@ -62,6 +105,7 @@
             }
         }
     }
+*/
 %>
 
 <!DOCTYPE html>
@@ -72,7 +116,8 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="Stylesheet" href="css/Style.css">
+        <link rel="Stylesheet" href="css/style.css">
+        <link rel="Stylesheet" href="css/navbar.css">
     </head>
     
     <style>
@@ -101,34 +146,65 @@
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
         </ul>
         <%
-            if (!order_id.equals("")) {
+            if (order_id != null) {
         %>
-            <h1>Order Has Been Placed</h1>    
-            <h2>Invoice</h2>
-            <%
-                res = st.executeQuery("select * from invoice where order_id = " + order_id);
+                <h1 class="mb-4">Order <%=order_id%> Has Been Placed!</h1>
+                <h4 class="mb-4 w-25 mx-auto" style="text-align: center">Click the button below to pay for the order to get it shipped as soon as possible.</h4>
+                <form action="payment.jsp" style="text-align: center">
+                    <input class="btn btn-default bg-primary text-white" type="submit" value="Pay Now"/>
+                </form>
+                <h4 class="mt-5 text-center">Order Summary</h4>
+                <table>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Product Type</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                <%
+                    String sql = "select quantity, product.product_id, product_name, price_per_unit, product_type, (quantity * price_per_unit) as total_price from orders " + 
+                                 "join orderlineitem on orderlineitem.order_id = orders.order_id " +
+                                 "join product on product.product_id = orderlineitem.product_id " +
+                                 "where customer_id =" + customer_id + " " +
+                                 "and orders.order_id = " + order_id;
+                    
+                    ResultSet res = st.executeQuery(sql);
+                    
+                    while (res.next()) {
+                %>
+                    <tr>
+                        <td><%=res.getString("product_id")%></td>
+                        <td><%=res.getString("product_name")%></td>
+                        <td><%=res.getString("product_type")%></td>
+                        <td><%=res.getString("quantity")%></td>
+                        <td><%="$" + new DecimalFormat("###,##0.00").format(Double.parseDouble(res.getString("price_per_unit")))%></td>
+                        <td><%="$" + new DecimalFormat("###,##0.00").format(Double.parseDouble(res.getString("total_price")))%></td>
+                    </tr>
+                <%
+                    }
 
-                if (res.next()) {
-            %>
-            <table>
-                <tr>
-                    <th>Invoice Number</th>
-                    <th>Total Cost</th>
-                    <th>Order Number</th>
-                </tr>
-                <tr>
-                    <td><%=res.getString("invoice_id")%></td>
-                    <td><%=res.getString("total_amount")%></td>
-                    <td><%=res.getString("order_id")%></td>
-                </tr>
-            </table>
-            <%
-                }
+                    res = st.executeQuery("select * from outcome where order_id = " + order_id);
+                    res.next();
+                %>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><b><%="$" + new DecimalFormat("###,##0.00").format(Double.parseDouble(res.getString("total_price")))%></b></td>
+                    </tr>
+                </table>
+        <%
             } else {
-            %>
-            <h1>No orders are created</h1>
-            <%
+        %>
+                <h1>No orders are created</h1>
+                
+                <h4 class="text-center"><a href="customerProductList.jsp">Click here</a> to have a look at our catalogue!</h4>
+        <%
             }
-            %>
+        %>
     </body>
 </html>
