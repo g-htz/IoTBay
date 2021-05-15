@@ -22,12 +22,12 @@
 
 <%   
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
-    Statement st = con.createStatement();
+    Statement st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
     
     String order_id = "";
     String customer_id = request.getSession().getAttribute("customer_id") + "";
     
-    System.out.println("cid: " + customer_id);
+    System.out.println("oid fdas: " + request.getSession().getAttribute("order_id"));
     
     // check if a new order needs to be created
     ResultSet res = st.executeQuery("select * from orders where order_id not in (select order_id from payment) and customer_id = " + customer_id);
@@ -35,6 +35,8 @@
     if (res.next()) {
         System.out.println("oid: " + res.getString("order_id"));
         order_id = res.getString("order_id");
+        
+        request.getSession().setAttribute("order_id", order_id);
     } else {
         System.out.println("need to create an oid");
         
@@ -108,12 +110,22 @@
             <h1 class='align-middle' style='text-align: center;'>Cart</h1>
             <table>
                 <%
-                    
+                    res = st.executeQuery("select * from shoppingcart where order_id = " + order_id);
+                        
+                    if (res.isBeforeFirst()) {
+                %>
+                <tr style="text-align: center">
+                    <th>Quantity</th>
+                    <th>Product Name</th>
+                    <th></th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                <%
+                    }
 
                     int rows = 0;
-                    if (!order_id.equals("")) {
-                        //ResultSet res = st.executeQuery("SELECT * FROM ORDERLINEITEM join product on product.product_id = orderlineitem.product_id where order_id = " + order_id);
-                        res = st.executeQuery("select * from shoppingcart where order_id = " + order_id);
+                    if (!order_id.equals("")) {       
                         
                         while (res.next()) {
                             rows++;
