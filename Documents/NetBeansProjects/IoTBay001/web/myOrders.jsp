@@ -20,12 +20,9 @@
     Statement st = con.createStatement();
     Statement st2 = con.createStatement();
     Statement st3 = con.createStatement();
-    request.getSession().setAttribute("customer_id", request.getParameter("customer_id"));
-    request.getSession().setAttribute("logged_in", "true");
-//    String customer_id = (String)request.getSession().getAttribute("customer_id");
-//    String customer_id = ${param.customer_id};
-    int customer_id = Integer.parseInt((String)request.getSession().getAttribute("customer_id"));
-    //int i = st.executeUpdate("Insert into orders(DATE_ORDERED, CUSTOMER_ID, ITEM_ID) values ('2008-11-11', 3, 69)");
+
+    int customer_id = Integer.parseInt(request.getSession().getAttribute("customer_id") + "");
+    System.out.println(request.getSession().getAttribute("customer_id") + "");
 %>
 
 <!DOCTYPE html>
@@ -86,7 +83,7 @@
                 
                 String order_id = request.getParameter("order_id");
                 String date_ordered = request.getParameter("date_ordered");
-                
+                                
                 if (order_id != null && !order_id.equals(""))
                     searchCriteria = "and orders.order_id = " + order_id;
                 if (date_ordered != null && !date_ordered.equals(""))
@@ -118,5 +115,9 @@
                 }
             %>
         </table>
+        
+        <footer style="width: 100%;background-color: #202020;color: whitesmoke;text-align: center; padding-bottom: 5px; margin-top: 20px;">            <p> @Copyright 2021 - ISD Group 16 </p>
+            <p> George Hetrelezis, Misty Duong, Reagan Brasch, Catherine Pe Benito </p>
+        </footer>
     </body>
 </html>
