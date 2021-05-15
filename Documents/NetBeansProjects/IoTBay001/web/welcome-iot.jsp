@@ -54,6 +54,7 @@
             while(loginResultsPage.next()) {
                 if(loginResultsPage.getString("EMAIL_ADDRESS").equals(customerEmail))
                 {
+                    request.getSession().setAttribute("customer_id", loginResultsPage.getString("customer_id"));
             
         %>
                 <div class='my-auto' style='margin: 0 auto;'>
