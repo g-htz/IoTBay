@@ -1,4 +1,4 @@
-<%-- 
+<%-- a
     Document   : createOrder
     Created on : 8 May 2021, 10:23:29 pm
     Author     : reaga
@@ -24,51 +24,56 @@
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
     Statement st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
     
-    String order_id = "";
+    String order_id = request.getSession().getAttribute("order_id") + "";
     String customer_id = request.getSession().getAttribute("customer_id") + "";
     
-    System.out.println("oid fdas: " + request.getSession().getAttribute("order_id"));
+    System.out.println("cid: " + customer_id);
     
     // check if a new order needs to be created
     ResultSet res = st.executeQuery("select * from orders where order_id not in (select order_id from payment) and customer_id = " + customer_id);
-    
-    if (res.next()) {
+
+    if (res.next() && order_id != null) {
         System.out.println("oid: " + res.getString("order_id"));
-        order_id = res.getString("order_id");
-        
-        request.getSession().setAttribute("order_id", order_id);
+        request.getSession().setAttribute("order_id", res.getString("order_id"));
     } else {
         System.out.println("need to create an oid");
-        
+
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
         String date_ordered = date.format(new Date());
-        
+
         st.executeUpdate("insert into orders (date_ordered, customer_id) values ('" + date_ordered + "', " + customer_id + ")");
         
-        // refresh page
-        %><script>location.replace("cart.jsp")</script><%
+        res = st.executeQuery("select * from orders where order_id not in (select order_id from payment) and customer_id = " + customer_id);
+        res.next();
+        request.getSession().setAttribute("order_id", res.getString("order_id"));
+        order_id = request.getSession().getAttribute("order_id") + "";
     }
-    
+
     // check if item needs to be added
     String product_id = request.getParameter("p");
     String quantity = request.getParameter("q");
-    
-    if (product_id != null && quantity != null) {
-        System.out.println("item needs to be added");
-        st.executeUpdate("insert into orderlineitem (order_id, product_id, quantity) values (" + order_id + ", " + product_id + ", " + quantity + ")");       
-        
-        // refresh page
+
+    if (!order_id.equals("")) {
+        if (product_id != null && quantity != null) {
+            System.out.println("item needs to be added, adding: " + order_id + ", " + product_id + ", " + quantity);
+            st.executeUpdate("insert into orderlineitem (order_id, product_id, quantity) values (" + order_id + ", " + product_id + ", " + quantity + ")");       
+
+            // refresh page
+            %><script>location.replace("cart.jsp")</script><%
+        }
+
+        // check if item needs to be removed
+        String removeProduct = request.getParameter("rp");
+        String removeQuantity = request.getParameter("rq");
+
+        if (removeProduct != null && removeQuantity != null) {
+            System.out.println("item needs to be removed");
+            st.executeUpdate("delete from orderlineitem where order_id = " + order_id + " and product_id = " + removeProduct + " and quantity = " + removeQuantity);
+        }
+    } else {
         %><script>location.replace("cart.jsp")</script><%
     }
     
-    // check if item needs to be removed
-    String removeProduct = request.getParameter("rp");
-    String removeQuantity = request.getParameter("rq");
-    
-    if (removeProduct != null && removeQuantity != null) {
-        System.out.println("item needs to be removed");
-        st.executeUpdate("delete from orderlineitem where order_id = " + order_id + " and product_id = " + removeProduct + " and quantity = " + removeQuantity);
-    }
 %>
 
 <!DOCTYPE html>
@@ -110,23 +115,24 @@
             <h1 class='align-middle' style='text-align: center;'>Cart</h1>
             <table>
                 <%
-                    res = st.executeQuery("select * from shoppingcart where order_id = " + order_id);
+                    if (!order_id.equals("")) {
                         
-                    if (res.isBeforeFirst()) {
-                %>
-                <tr style="text-align: center">
-                    <th>Quantity</th>
-                    <th>Product Name</th>
-                    <th></th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-                <%
-                    }
+                        res = st.executeQuery("select * from shoppingcart where order_id = " + order_id);
 
-                    int rows = 0;
-                    if (!order_id.equals("")) {       
-                        
+                        if (res.isBeforeFirst()) {
+                    %>
+                    <tr style="text-align: center">
+                        <th>Quantity</th>
+                        <th>Product Name</th>
+                        <th></th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                    <%
+                        }
+
+                        int rows = 0;   
+
                         while (res.next()) {
                             rows++;
                         %>
@@ -140,14 +146,14 @@
                         </tr>
                         <%
                         }
-                    }
-                        
-                    if (rows == 0) {
-                    %>
-                        <h5 style="text-align: center">Cart is empty...</h5>
-                        <h5 style="text-align: center"><a href="customerProductList.jsp">Click here</a> to check our catalogue!</h5>
-                    <%
+
+                        if (rows == 0) {
+                        %>
+                            <h5 style="text-align: center">Cart is empty...</h5>
+                            <h5 style="text-align: center"><a href="customerProductList.jsp">Click here</a> to check our catalogue!</h5>
+                        <%
                         }
+                    }
                     %>
             </table>
             <form action="createOrder.jsp" method="POST">
