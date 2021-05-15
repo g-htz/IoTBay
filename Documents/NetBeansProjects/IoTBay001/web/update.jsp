@@ -148,7 +148,7 @@ while(resultSet.next()){
             <li class="float-right"><a href="profile.jsp">My Profile</a></li>
         </ul>
         <div class="sidenav">
-            <a href="productList.jsp">Go Back</a>
+            <a href="javascript:history.back()">Go Back</a>
         </div>
 <h1>Update Product</h1>
 <form method="post" action="updateProcess.jsp">
