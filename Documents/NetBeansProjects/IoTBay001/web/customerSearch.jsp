@@ -139,7 +139,7 @@ String productName=(request.getParameter("search_product")).toLowerCase();
 </tr>
 <%
 try{
-String sql ="select * from product where lower(product_type)='"+productType+"' or lower(product_name)='"+productName+"'";
+String sql ="select * from product where lower(product_type) like '%"+productType+"%' or lower(product_name) like '%"+productName+"%'";
 ResultSet resultSet = statement.executeQuery(sql);
 int i=0;
 while(resultSet.next()){
