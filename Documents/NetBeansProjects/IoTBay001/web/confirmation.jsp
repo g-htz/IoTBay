@@ -66,8 +66,12 @@
        
         <%  if (request.getParameter("paymentsent") != null) {
 //            String sql1 = "select order_id from orders where order_id = (select max(order_id) from orders);";
-            int orderid = 1;  // retrieve the latest orderid from orders table
-            int customerid = 1; // session -- request.getSession().getAttribute("customer_id");
+            //int orderid = 1;  // retrieve the latest orderid from orders table
+            //int customerid = 1; // session -- request.getSession().getAttribute("customer_id");
+            
+            int orderid = Integer.parseInt(request.getSession().getAttribute("order_id") + "");
+            int customerid = Integer.parseInt(request.getSession().getAttribute("customer_id") + "");
+            
            
             int p=st.executeUpdate("Insert into payment(PAYMENT_TYPE, CARD_F_NAME, CARD_L_NAME,"
                             + "CARD_NO, SECURITY_CODE, EXP_MONTH, EXP_YEAR, CUSTOMER_ID, ORDER_ID)"
@@ -104,7 +108,7 @@
                     <tr>
                         <th> Customer Details: </th>
                         <td> <%=BUYER_F_NAME%> <%=BUYER_L_NAME%> </td>
-                        <td> <button type="submit" name="customer" formaction="UpdatePayment.jsp"> Update </button> </td>
+                        <td> <button type="submit" name="customer" formaction="updatePayment.jsp"> Update </button> </td>
                     </tr>
                    
                     <tr> <th> Email: </th> <td> <%=EMAIL_ADDRESS%> </td> </tr>
@@ -116,7 +120,7 @@
                     <tr>
                         <th> Payment Details:  </th>
                         <td> <%=CARD_F_NAME%> <%=CARD_L_NAME%> </td>
-                        <td> <button type="submit" name="paydetails" formaction="UpdatePayment.jsp"> Update </button> </td>
+                        <td> <button type="submit" name="paydetails" formaction="updatePayment.jsp"> Update </button> </td>
                     </tr>
                    
                     <tr> <th> Paid with: </th> <td> <%=PAYMENT_TYPE%> </td> </tr>
@@ -158,8 +162,8 @@
             </div>
            
             <div style="text-align: center">
-                <button class="button" type="submit" name="delete" formaction="CancelPayment.jsp" title="Customer's purchase and payment details will be discard"> Cancel </button>
-                <button class="button" type="submit" name="confirm" formaction="Paid.jsp" title="Confirmed payment details cannot be further undone or update"> Confirm </button>
+                <button class="button" type="submit" name="delete" formaction="cancelPayment.jsp" title="Customer's purchase and payment details will be discard"> Cancel </button>
+                <button class="button" type="submit" name="confirm" formaction="paid.jsp" title="Confirmed payment details cannot be further undone or update"> Confirm </button>
             </div>   
             </form>
         </div>   
