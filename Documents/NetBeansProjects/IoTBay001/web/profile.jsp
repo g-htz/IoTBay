@@ -21,8 +21,8 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link href="css/navbar.css" rel="stylesheet" type="text/css"/>
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link rel="Stylesheet" href="css/Style.css">
+        <link rel="Stylesheet" href="css/navbar.css">
         <style>
             body {margin:0;}
 
@@ -94,11 +94,7 @@
             <div class='card-group'>
                 <div class='card card-profile mx-1'>
                     <img src="https://images.unsplash.com/photo-1517596107285-5ce3dd0f61df?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class='card-img-top'>
-                    <h4 style='text-align: center;'><a href="viewDetails.jsp"/>View my registration details</h4>
-                </div>
-                <div class='card card-profile mx-1'>
-                    <img src="https://images.unsplash.com/photo-1616759197490-d2656036df6d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80" class='card-img-top'>
-                    <h4 style='text-align: center;'><a href="viewActivity.jsp"/>View my activity</h4>
+                    <h4 style='text-align: center;'><a href="viewDetails.jsp?customer_id=<%=request.getParameter("customer_id")%>"/>View my registration details</h4>
                 </div>
                 <div class='card card-profile mx-1'>
                     <img src="images/viewpayment.jpeg" class='card-img-top'/>
