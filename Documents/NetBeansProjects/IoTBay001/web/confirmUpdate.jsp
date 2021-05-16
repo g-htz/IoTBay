@@ -18,7 +18,7 @@
     String FIRST_NAME = request.getParameter("updateFirstNameTf");
     String LAST_NAME = request.getParameter("updateLastNameTf");
     String EMAIL_ADDRESS = request.getParameter("updateEmailTf");
-    String PASSWORD = request.getParameter("updatePhoneTf");
+    String PASSWORD = request.getParameter("updatePasswordTf");
     String PHONENO = request.getParameter("updatePhoneTf");
     String ADDRESS = request.getParameter("updateAddressTf");
     String SUBURB = request.getParameter("updateSuburbTf");

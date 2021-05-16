@@ -27,7 +27,7 @@
 //    ResultSet loginResults = st.executeQuery("select * from customer");
     ResultSet loginResultsPage = st2.executeQuery("select * from customer ");
     while(loginResults.next()) {
-        if(loginResults.getString("email_address").equals(customerEmail))
+        if(loginResults.getString("email_address").equals(customerEmail) && loginResults.getString("password").equals(customerPassword))
         {
             int session_id = loginResults.getInt("customer_id");
             System.out.println(session_id);

@@ -18,10 +18,10 @@
 <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
 <%   
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
+    String customer_id = request.getSession().getAttribute("customer_id") + "";
     Statement st = con.createStatement();
     Statement st2 = con.createStatement();
 %>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -101,12 +101,17 @@
                          <%
                              //int value = ${param.customer_id};
                              int value = Integer.valueOf(request.getParameter("customer_id"));
-                             String sqlQuery = "delete from iotadmin.logtime " + "where user_id=" + value;
-                             String sqlQuery2 = "delete from iotadmin.customer " + "where customer_id=" + value;
-//                                            + "where customer_id = " + request.getParameter("customer_id");
+                             
+//                           st.executeUpdate(sqlQuery);  
+//                           st2.executeUpdate(sqlQuery2);
+                            st.executeUpdate("delete from orderlineitem where order_id in (select order_id from orders where customer_id = " + customer_id + ")");
+                            st.executeUpdate("delete from payment where order_id in (select order_id from orders where customer_id = " + customer_id + ")");
+                            st.executeUpdate("delete from shipment where order_id in (select order_id from orders where customer_id = " + customer_id + ")");
+                            st.executeUpdate("delete from orders where customer_id = " + customer_id);
+                            st.executeUpdate("delete from customer where customer_id = " + customer_id);
 
-                           st.executeUpdate(sqlQuery);  
-                           st2.executeUpdate(sqlQuery2);
+
+
 //                           ResultSet res = st.executeQuery();
 
                         %>

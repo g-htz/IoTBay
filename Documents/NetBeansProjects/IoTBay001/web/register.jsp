@@ -24,7 +24,7 @@
                     <input class="form-control" type="email" name="registrationEmailTf" placeholder="Email Address" required/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="password" name="registrationEmailTf" placeholder="Password" required/>
+                    <input class="form-control" type="password" name="registrationPasswordTf" placeholder="Password" required/>
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" name="registrationPhoneTf" placeholder="Phone Number" required/>

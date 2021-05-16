@@ -18,7 +18,7 @@
     String FIRST_NAME = request.getParameter("registrationFirstNameTf");
     String LAST_NAME = request.getParameter("registrationLastNameTf");
     String EMAIL_ADDRESS = request.getParameter("registrationEmailTf");
-    String PASSWORD = request.getParameter("registrationPhoneTf");
+    String PASSWORD = request.getParameter("registrationPasswordTf");
     String PHONENO = request.getParameter("registrationPhoneTf");
     String ADDRESS = request.getParameter("registrationAddressTf");
     String SUBURB = request.getParameter("registrationSuburbTf");

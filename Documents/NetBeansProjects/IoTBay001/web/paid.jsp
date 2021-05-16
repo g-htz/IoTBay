@@ -31,7 +31,7 @@
             <h2 style="text-align: center"> Your order has been submitted, an email will be sent when the package has started shipping </h2>
         
             <h2 style="text-align: center"> Continue shopping or simple logout/close the browser to end your session: </h2>
-            <form style="text-align: center" action="shopping.jsp" method="POST">
+            <form style="text-align: center" action="customerProductList.jsp" method="POST">
                 <button class="button" type="submit"> Continue Shopping </button> <br>
             </form>
         </div>

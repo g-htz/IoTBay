@@ -78,26 +78,26 @@
     </head>
     <body>
         <ul>
-            <li><a class="active" href="main.jsp?customer_id=<%=request.getParameter("customer_id")%>">Home</a></li>
-            <li><a href="customerProductList.jsp?customer_id=<%=request.getParameter("customer_id")%>">Products</a></li>
+            <li><a class="active" href="main.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Home</a></li>
+            <li><a href="adminProductList.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Products</a></li>
             <li class="dropdown">
                 <a class="dropbtn">Account </a>
                 <div class="dropdown-content">
-                    <a href="createOrder.jsp?customer_id=<%=request.getParameter("customer_id")%>">Create Order</a>
-                    <a href="myOrders.jsp?customer_id=<%=request.getParameter("customer_id")%>">Previous Orders</a>
+                    <a href="createOrder.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Create Order</a>
+                    <a href="myOrders.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Previous Orders</a>
                 </div>
             </li>
             <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">My Profile</a></li>
+            <li class="float-right"><a href="profile.jsp?staff_id=<%=request.getParameter("staff_id")%>">My Profile</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
         </ul>
          
         <h1 class="ml-5">My Activity</h1>
         <div class='mx-5'>
-            <form class="form-inline" method="post" action="viewActivitySearch.jsp">
+            <form class="form-inline" method="post" action="adminActivitySearch.jsp ">
                 <table class="center" border="0">
                     <tr class="d-flex"> 
-                        <td><input class="form-control w-100" type="text" name="search_activity" placeholder="Filter by date (yyyy-mm-dd)">
+                        <td><input class="form-control w-100" type="text" name="admin_find_log" placeholder="Filter by date (yyyy-mm-dd)">
                         <button class="mt-3 w-100 btn btn-primary" type="submit" name="btn_activity">Search</button></td>
                     </tr>
                 </table>
@@ -111,7 +111,7 @@
                     </tr>
                 <%
                     String sqlQuery = "select * from logtime "
-                                    + "where user_id = " + request.getSession().getAttribute("customer_id");
+                                    + "where user_id = " + request.getSession().getAttribute("staff_id");
                                     //+ "where customer_id = " + request.getParameter("order_id");
 
                     ResultSet res = st.executeQuery(sqlQuery);
@@ -146,7 +146,7 @@
             </table>
         </div>
         <div class='mx-5 pt-5'>
-            <h4 class="float-left"><a href="profile.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Return to profile</a></h4>
+            <h4 class="float-left"><a href="profile.jsp?staff_id=<%=request.getSession().getAttribute("customer_id")%>">Return to profile</a></h4>
         </div>
     </body>
 </html>

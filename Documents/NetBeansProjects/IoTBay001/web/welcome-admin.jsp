@@ -16,14 +16,17 @@
 <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
 <%
     String staffEmail = request.getParameter("staffEmail");
+    String staffPassword = request.getParameter("staffPwd");
     //String customerEmail = "johnsmith123@123.com";
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
     Statement st = con.createStatement();
     Statement st2 = con.createStatement();
+    Statement st3 = con.createStatement();
+    Statement st4 = con.createStatement();
     ResultSet loginResults = st.executeQuery("select * from staff where email_address='"+staffEmail+"'");
     ResultSet loginResultsPage = st2.executeQuery("select * from staff");
     while(loginResults.next()) {
-        if(loginResults.getString("email_address").equals(staffEmail))
+        if(loginResults.getString("email_address").equals(staffEmail) && loginResults.getString("password").equals(staffPassword))
         {
             int session_id = loginResults.getInt("staff_id");
             System.out.println(session_id);
@@ -32,11 +35,21 @@
         {
         %>
             <script>          
-                window.location.href = "login.jsp";
+                window.location.href = "admin.jsp";
                 alert("Sorry! Your username or password was incorrect");
 
             </script>
         <%
+        }
+    }
+    ResultSet adminidResults = st3.executeQuery("select * from staff");
+    while (adminidResults.next()) {
+        //System.out.println(customerResults.getString("EMAIL_ADDRESS"));
+        //System.out.println(EMAIL_ADDRESS);
+        if(adminidResults.getString("EMAIL_ADDRESS").equals(staffEmail))
+        {
+            int logResults = st4.executeUpdate("Insert into logtime(user_ID)"
+                                                  + "values ("+adminidResults.getString("staff_id")+")");
         }
     }
     loginResults.next();

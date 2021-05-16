@@ -27,7 +27,7 @@
                 <input class="button" type="submit" id="register" value="Register"/>
             </form>
             
-            <form action="shopping.jsp" method="POST">
+            <form action="customerProductList.jsp" method="POST">
                 <input class="button" type="submit" id="shopping" value="Continue as Anonymous"/>
             </form>
         </div>

@@ -169,7 +169,7 @@ out.println(sql);
   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>  
   <strong>Success!</strong> Added record <%=request.getParameter("product_id")%>
 </div>
-<table border="1">
+<table border="1" class="mb-5 pb-5">
 <tr class="tableHeading">
 <td>Product ID</td>
 <td>Product Name</td>

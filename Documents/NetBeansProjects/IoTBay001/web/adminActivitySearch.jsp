@@ -78,21 +78,21 @@
     </head>
     <body>
         <ul>
-            <li><a class="active" href="main.jsp?customer_id=<%=request.getParameter("customer_id")%>">Home</a></li>
-            <li><a href="customerProductList.jsp?customer_id=<%=request.getParameter("customer_id")%>">Products</a></li>
+            <li><a class="active" href="main.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Home</a></li>
+            <li><a href="staffProductList.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Products</a></li>
             <li class="dropdown">
                 <a class="dropbtn">Account </a>
                 <div class="dropdown-content">
-                    <a href="createOrder.jsp?customer_id=<%=request.getParameter("customer_id")%>">Create Order</a>
-                    <a href="myOrders.jsp?customer_id=<%=request.getParameter("customer_id")%>">Previous Orders</a>
+                    <a href="createOrder.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Create Order</a>
+                    <a href="myOrders.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Previous Orders</a>
                 </div>
             </li>
             <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">My Profile</a></li>
+            <li class="float-right"><a href="profile.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">My Profile</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
         </ul>
 
-        <h1 class="ml-5">Activity on the <%=request.getParameter("search_activity")%></h1>
+        <h1 class="ml-5">Activity on the <%=request.getParameter("admin_find_log")%></h1>
         <div class='mx-5'>
             <table>
                 <tr>
@@ -103,7 +103,7 @@
                 </tr>
                 <%
 
-            String sql ="select * from logtime where (date_login='"+request.getParameter("search_activity")+"' AND user_id="+request.getSession().getAttribute("customer_id")+" )";
+            String sql ="select * from logtime where (date_login='"+request.getParameter("admin_find_log")+"' AND user_id="+request.getSession().getAttribute("staff_id")+" )";
             ResultSet resultSet = st.executeQuery(sql);
             int i=0;
             while(resultSet.next()){
@@ -133,7 +133,7 @@
             </table>
         </div>
         <div class='mx-5 pt-5'>
-            <h4 class="float-left"><a href="viewActivity.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Return to activity</a></h4>
+            <h4 class="float-left"><a href="viewActivity.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Return to activity</a></h4>
         </div>
     </body>
 </html>
