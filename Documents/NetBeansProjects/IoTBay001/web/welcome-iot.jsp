@@ -15,11 +15,13 @@
 
 <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
 <%
-    String customerEmail = request.getParameter("loginEmail");
+    String customerEmail = request.getParameter("loginEmail").toLowerCase();
     //String customerEmail = "johnsmith123@123.com";
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
     Statement st = con.createStatement();
     Statement st2 = con.createStatement();
+    Statement st3 = con.createStatement();
+    Statement st4 = con.createStatement();
 //    ResultSet loginResults = st.executeQuery("select * from customer WHERE email_address=" + "EMAIL_ADDRESS");
     ResultSet loginResults = st.executeQuery("select * from customer");
     ResultSet loginResultsPage = st2.executeQuery("select * from customer");
@@ -31,9 +33,24 @@
         }
         else
         {
-//            Returns wrong login to main screen
-////            String redirect = "login.jsp";
-//            request.getRequestDispatcher("login.jsp").forward();
+            %>
+            <script>          
+                window.location.href = "login.jsp";
+                alert("Sorry! Your username or password was incorrect");
+
+            </script>
+            <%
+        }
+    }
+    
+    ResultSet idResults = st3.executeQuery("select * from customer");
+    while (idResults.next()) {
+        //System.out.println(customerResults.getString("EMAIL_ADDRESS"));
+        //System.out.println(EMAIL_ADDRESS);
+        if(idResults.getString("EMAIL_ADDRESS").equals(customerEmail))
+        {
+            int logResults = st4.executeUpdate("Insert into logtime(user_ID)"
+                                                  + "values ("+idResults.getString("customer_id")+")");
         }
     }
     loginResults.next();
@@ -73,7 +90,7 @@
                             display.textContent = "Redirecting in " + seconds;
 
                             if (--timer < 0) {
-                                window.location.href = "main.jsp";
+                                window.location.href = "main.jsp?customer_id<%=loginResultsPage.getString("customer_id")%>";
                             }
                         }, 1000);
                     }

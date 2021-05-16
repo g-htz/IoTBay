@@ -91,62 +91,49 @@
             <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">My Profile</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
         </ul>
-         
-        <h1 class="ml-5">My Activity</h1>
+
+        <h1 class="ml-5">Activity on the <%=request.getParameter("search_activity")%></h1>
         <div class='mx-5'>
-            <form class="form-inline" method="post" action="viewActivitySearch.jsp">
-                <table class="center" border="0">
-                    <tr class="d-flex"> 
-                        <td><input class="form-control w-100" type="text" name="search_activity" placeholder="Filter by date (yyyy-mm-dd)">
-                        <button class="mt-3 w-100 btn btn-primary" type="submit" name="btn_activity">Search</button></td>
-                    </tr>
-                </table>
-            </form>
-                <table>
-                    <tr>
-                        <th class="pr-3">Date Logged In</th>
-                        <th class="pr-3">Time Logged In</th>
-                        <th class="pr-3">Date Logged Out</th>
-                        <th class="pr-3">Time Logged Out</th>
-                    </tr>
+            <table>
+                <tr>
+                    <th class="pr-3">Date Logged In</th>
+                    <th class="pr-3">Time Logged In</th>
+                    <th class="pr-3">Date Logged Out</th>
+                    <th class="pr-3">Time Logged Out</th>
+                </tr>
                 <%
-                    String sqlQuery = "select * from logtime "
-                                    + "where user_id = " + request.getSession().getAttribute("customer_id");
-                                    //+ "where customer_id = " + request.getParameter("order_id");
 
-                    ResultSet res = st.executeQuery(sqlQuery);
+            String sql ="select * from logtime where (date_login='"+request.getParameter("search_activity")+"' AND user_id="+request.getSession().getAttribute("customer_id")+" )";
+            ResultSet resultSet = st.executeQuery(sql);
+            int i=0;
+            while(resultSet.next()){
+            %>
+                <tr class="tableColor">
+                <td><%=resultSet.getString("date_login") %></td>
+                <td><%=resultSet.getString("time_login") %></td>
+            <%
+                if(resultSet.getString("date_logout") == null)
+                {
+            %>   
+                <td></td>
+                <td></td>
+            <%    
+                }
+                else
+                {
+            %>
+                <td><%=resultSet.getString("date_logout") %></td>
+                <td><%=resultSet.getString("time_logout") %></td>
+            <%
+                }
+            }
 
-                    while (res.next()) {
-                        %>
-                            
-                            <tr>
-                                <td><%=res.getString("date_login")%></td>
-                                <td><%=res.getString("time_login")%></td>
-                        <%
-                            if(res.getString("date_logout") == null)
-                            {
-                        %>        
-                                <td></td>
-                                <td></td>
-                        <%    
-                            }
-                            else
-                            {
-                        %>
-                                <td><%=res.getString("date_logout")%></td>
-                                <td><%=res.getString("time_logout")%></td>
-                        <%    
-                            }
-                        %>        
-                                
-                            </tr>
-                        <%
-                    }
-                %>
+            %>
+                </tr>
             </table>
         </div>
         <div class='mx-5 pt-5'>
-            <h4 class="float-left"><a href="profile.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Return to profile</a></h4>
+            <h4 class="float-left"><a href="viewActivity.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Return to activity</a></h4>
         </div>
     </body>
 </html>

@@ -15,49 +15,18 @@
 
 <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
 <%
-    String FIRST_NAME = request.getParameter("registrationFirstNameTf");
-    String LAST_NAME = request.getParameter("registrationLastNameTf");
-    String EMAIL_ADDRESS = request.getParameter("registrationEmailTf");
-    String PASSWORD = request.getParameter("registrationPhoneTf");
-    String PHONENO = request.getParameter("registrationPhoneTf");
-    String ADDRESS = request.getParameter("registrationAddressTf");
-    String SUBURB = request.getParameter("registrationSuburbTf");
-    String STATE = request.getParameter("registrationStateTf");
-    String COUNTRY = request.getParameter("registrationCountryTf");
+    String staffEmail = request.getParameter("staffEmail");
     //String customerEmail = "johnsmith123@123.com";
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
     Statement st = con.createStatement();
     Statement st2 = con.createStatement();
-    Statement st3 = con.createStatement();
-    Statement st4 = con.createStatement();
-    Statement st5 = con.createStatement();
-    ResultSet customers = st.executeQuery("select * from customer");  
-    
-    int emailCounter = 0;
-    while(customers.next()) {
-        String email = customers.getString("EMAIL_ADDRESS");
-        if(EMAIL_ADDRESS.equals(email)) {
-            emailCounter = emailCounter + 1;
-        }
-     }
-    if(emailCounter == 0){
-        int i=st2.executeUpdate("Insert into customer(FIRST_NAME, LAST_NAME,"
-                                + "EMAIL_ADDRESS, PASSWORD, PHONENO, ADDRESS,"
-                                + "SUBURB, STATE,COUNTRY) "
-                                + "values ('"+FIRST_NAME+"', '"+LAST_NAME+"', '"+EMAIL_ADDRESS+"', '"+PASSWORD+"', "
-                                            +" '"+PHONENO+"', '"+ADDRESS+"', '"+SUBURB+"',"
-                                            + "'"+STATE+"', '"+COUNTRY+"')");
-    }
-    
-    ResultSet customerResults = st3.executeQuery("select * from customer WHERE email_address=" + "EMAIL_ADDRESS");
-    ResultSet idResults = st4.executeQuery("select * from customer WHERE email_address=" + "EMAIL_ADDRESS");
-    while (idResults.next()) {
-        //System.out.println(customerResults.getString("EMAIL_ADDRESS"));
-        //System.out.println(EMAIL_ADDRESS);
-        if(idResults.getString("EMAIL_ADDRESS").equals(EMAIL_ADDRESS))
+    ResultSet loginResults = st.executeQuery("select * from staff");
+    ResultSet loginResultsPage = st2.executeQuery("select * from staff");
+    while(loginResults.next()) {
+        if(loginResults.getString("email_address").equals(staffEmail))
         {
-            int logResults = st5.executeUpdate("Insert into logtime(user_ID)"
-                                                  + "values ("+idResults.getString("customer_id")+")");
+            int session_id = loginResults.getInt("staff_id");
+            System.out.println(session_id);
         }
         else
         {
@@ -70,6 +39,7 @@
         <%
         }
     }
+    loginResults.next();
        
 %>
 <!DOCTYPE html>
@@ -84,16 +54,17 @@
     </head>
     <body>
         <% 
-            while(customerResults.next()) {
-                if(customerResults.getString("EMAIL_ADDRESS").equals(EMAIL_ADDRESS))
+            while(loginResultsPage.next()) {
+                if(loginResultsPage.getString("EMAIL_ADDRESS").equals(staffEmail))
                 {
+                    request.getSession().setAttribute("staff_id", loginResultsPage.getString("staff_id"));
             
         %>
                 <div class='my-auto' style='margin: 0 auto;'>
                     <h1 style="text-align: center;"> Welcome!</h1>
                     <h2 style="text-align: center;"> Bringing you to your dashboard now!</h2>
                     <h4 style="text-align: center;" id="timer">Redirecting in 5</h4>
-                    <a style="display: block; text-align: center;" href="main.jsp?customer_id=<%=customerResults.getString("customer_id")%>">Click here if this page does not change.</a>        
+                    <a style="display: block; text-align: center;" href="main.jsp?staff_id=<%=loginResultsPage.getString("staff_id")%>">Click here if this page does not change.</a>        
                 </div>
 
                 <script>          
@@ -105,7 +76,7 @@
                             display.textContent = "Redirecting in " + seconds;
 
                             if (--timer < 0) {
-                                window.location.href = "main.jsp?customer_id=<%=customerResults.getString("customer_id")%>";
+                                window.location.href = "main.jsp?staff_id=<%=loginResultsPage.getString("staff_id")%>";
                             }
                         }, 1000);
                     }
@@ -117,9 +88,17 @@
                 </script>
         <%
                 }
-                else
+                if(staffEmail == null)
                 {
-                    System.out.println("try again?");
+                    //System.out.println("try again?");
+                    %>
+                    
+                      <script>          
+                        window.location.href = "login.jsp";
+                        alert("Sorry! Your username or password was incorrect");
+                    
+                    </script>
+                    <%
                 }
         }
         %>

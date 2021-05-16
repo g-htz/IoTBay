@@ -57,7 +57,7 @@
   
         <h1 style="text-align:center"> Customer Checkout </h1> 
         <div style="height: 2500px; "> 
-        <form center action="Confirmation.jsp" method="POST"> 
+        <form center action="confirmation.jsp" method="POST"> 
              
         <div style="padding-bottom: 10px; margin-left: 400px">             
             <h2> Summary </h2> 

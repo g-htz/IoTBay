@@ -74,10 +74,11 @@
                     try{
                     String payid = request.getParameter("requestedid");
                     String paydate = request.getParameter("requesteddate");
-                    String sql ="SELECT c.CUSTOMER_ID, c.FIRST_NAME, c.LAST_NAME, c.EMAIL_ADDRESS, i.TOTAL_AMOUNT, p.PAYMENT_ID, p.PAYMENT_TYPE, p.DATE_RECEIVED "
+                    String sql ="SELECT c.CUSTOMER_ID, c.FIRST_NAME, c.LAST_NAME, c.EMAIL_ADDRESS, oc.TOTAL_PRICE, p.PAYMENT_ID, p.PAYMENT_TYPE, p.DATE_RECEIVED "
                     + "          FROM IOTADMIN.PAYMENT p INNER JOIN IOTADMIN.CUSTOMER c on p.CUSTOMER_ID = c.CUSTOMER_ID "
-                    + "                                  INNER JOIN IOTADMIN.INVOICE i on p.INVOICE_ID = i.INVOICE_ID"
-                    + "          WHERE PAYMENT_ID=" +payid+ " OR DATE_RECEIVED='" +paydate+ "'";
+                    + "                                  INNER JOIN IOTADMIN.ORDERS o on p.ORDER_ID = o.ORDER_ID"
+                    + "                                  INNER JOIN OUTCOME oc on o.ORDER_ID = oc.ORDER_ID"
+                    + "          WHERE PAYMENT_ID=" +payid+ " AND DATE_RECEIVED='" +paydate+ "'";
                     ResultSet resultSet = st.executeQuery(sql);
                     while(resultSet.next()){
                 %>

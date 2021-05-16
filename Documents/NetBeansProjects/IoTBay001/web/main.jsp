@@ -42,7 +42,7 @@
             <li class="dropdown">
                 <a class="dropbtn">Account </a>
                 <div class="dropdown-content">
-                    <a href="createOrder.jsp?customer_id=<%=request.getParameter("customer_id")%>">Create Order</a>
+                    <a href="cart.jsp?customer_id=<%=request.getParameter("customer_id")%>">Create Order</a>
                     <a href="myOrders.jsp?customer_id=<%=request.getParameter("customer_id")%>">Previous Orders</a>
                 </div>
             </li>

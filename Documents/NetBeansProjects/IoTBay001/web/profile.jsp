@@ -75,17 +75,17 @@
     </head>
     <body>
         <ul>
-            <li><a class="active" href="main.jsp?customer_id=<%=request.getParameter("customer_id")%>">Home</a></li>
-            <li><a href="customerProductList.jsp?customer_id=<%=request.getParameter("customer_id")%>">Products</a></li>
+            <li><a class="active" href="main.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Home</a></li>
+            <li><a href="customerProductList.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Products</a></li>
             <li class="dropdown">
                 <a class="dropbtn">Account </a>
                 <div class="dropdown-content">
-                    <a href="createOrder.jsp?customer_id=<%=request.getParameter("customer_id")%>">Create Order</a>
-                    <a href="myOrders.jsp?customer_id=<%=request.getParameter("customer_id")%>">Previous Orders</a>
+                    <a href="createOrder.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Create Order</a>
+                    <a href="myOrders.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Previous Orders</a>
                 </div>
             </li>
             <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">My Profile</a></li>
+            <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">My Profile</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
         </ul>
 
@@ -94,20 +94,20 @@
             <div class='card-group'>
                 <div class='card card-profile mx-1'>
                     <img src="https://images.unsplash.com/photo-1517596107285-5ce3dd0f61df?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class='card-img-top'>
-                    <h4 style='text-align: center;'><a href="viewDetails.jsp?customer_id=<%=request.getParameter("customer_id")%>"/>View my registration details</h4>
+                    <h4 style='text-align: center;'><a href="viewDetails.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>"/>View my registration details</h4>
                 </div>
                 <div class='card card-profile mx-1'>
-                    <img src="images/viewpayment.jpeg" class='card-img-top'/>
+                    <img src="https://images.unsplash.com/photo-1619169448145-eea99df06181?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class='card-img-top'/>
                     <h4 style='text-align: center;'><a href="viewPayment.jsp"/>View my payment details</h4>
                 </div>
                 <div class='card card-profile mx-1'>
                     <img src="https://images.unsplash.com/photo-1616759197490-d2656036df6d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80" class='card-img-top'>
-                    <h4 style='text-align: center;'><a href="viewActivity.jsp?customer_id=<%=request.getParameter("customer_id")%>">View my activity</h4>
+                    <h4 style='text-align: center;'><a href="viewActivity.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">View my activity</h4>
                 </div>
             </div>
         </div>
         <div class='mx-5 pt-5'>
-            <h4 class="float-left"><a href="cancelRegistration.jsp?customer_id=<%=request.getParameter("customer_id")%>">Cancel My Registration</a></h4>
+            <h4 class="float-left"><a href="cancelRegistration.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Cancel My Registration</a></h4>
         </div>
         <div class="footer">
             <p> @Copyright 2021 - ISD Group 16 </p>

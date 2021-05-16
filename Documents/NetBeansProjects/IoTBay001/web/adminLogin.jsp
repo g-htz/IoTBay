@@ -17,14 +17,14 @@ and open the template in the editor.
     <body>
         <div class='col-md-3 my-auto' style='margin: 0 auto;'>
             <h1 class='align-middle' style='text-align: center;'>IoT Bay Admin</h1>
-            <form action="welcome-iot.jsp" method="POST">
+            <form action="welcome-admin.jsp" method="POST">
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="staffEmail" required>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
+                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="staffPwd" required>
                 </div>
                 <div class="checkbox" required>
                     <label><input type="checkbox" name="remember"> Remember me</label>
