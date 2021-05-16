@@ -202,7 +202,7 @@ while(resultSet.next()){
   <!--<input type="hidden" name="q" value="1"/>-->
   <div>
       <b>Quantity:</b>
-      <input style="width: 5em" type="number" min="1" step="1" name="q" value="1" required/>
+      <input style="width: 5em" type="number" min="1" max="<%=resultSet.getString("total_quantity")%>" step="1" name="q" value="1" required/>
       <input class="ml-1" type="submit" value="Add to Cart"/>
   </div>
   

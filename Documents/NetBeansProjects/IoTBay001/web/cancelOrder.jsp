@@ -29,11 +29,11 @@
     String customer_id = request.getSession().getAttribute("customer_id") + "";
     
     if (!order_id.equals("")) {
-        ResultSet res = st1.executeQuery("select product_id from orderlineitem where order_id = " + order_id);
+        ResultSet res = st1.executeQuery("select product_id, quantity from orderlineitem where order_id = " + order_id);
 
         while (res.next()) {
             String product_id = res.getString("product_id");
-            st2.executeUpdate("update product set total_quantity = total_quantity + 1 where product_id = " + product_id);
+            st2.executeUpdate("update product set total_quantity = total_quantity + " + res.getString("quantity") + " where product_id = " + product_id);
         }
 
         st1.executeUpdate("delete from orderlineitem where order_id = " + order_id);

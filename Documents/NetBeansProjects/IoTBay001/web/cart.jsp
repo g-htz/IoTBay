@@ -56,7 +56,8 @@
     if (!order_id.equals("")) {
         if (product_id != null && quantity != null) {
             System.out.println("item needs to be added, adding: " + order_id + ", " + product_id + ", " + quantity);
-            st.executeUpdate("insert into orderlineitem (order_id, product_id, quantity) values (" + order_id + ", " + product_id + ", " + quantity + ")");       
+            st.executeUpdate("insert into orderlineitem (order_id, product_id, quantity) values (" + order_id + ", " + product_id + ", " + quantity + ")");
+            st.executeUpdate("update product set total_quantity = total_quantity - " + quantity + " where product_id = " + product_id);
 
             // refresh page
             %><script>location.replace("cart.jsp")</script><%
@@ -69,6 +70,7 @@
         if (removeProduct != null && removeQuantity != null) {
             System.out.println("item needs to be removed");
             st.executeUpdate("delete from orderlineitem where order_id = " + order_id + " and product_id = " + removeProduct + " and quantity = " + removeQuantity);
+            st.executeUpdate("update product set total_quantity = total_quantity + " + removeQuantity + " where product_id = " + removeProduct);
         }
     } else {
         %><script>location.replace("cart.jsp")</script><%

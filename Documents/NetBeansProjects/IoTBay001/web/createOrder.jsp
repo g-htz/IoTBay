@@ -23,27 +23,27 @@
     String order_id = request.getSession().getAttribute("order_id") + "";
     String customer_id = request.getSession().getAttribute("customer_id") + "";
     
-    String placedOrder = request.getSession().getAttribute("placedOrder") + "";
-    
-    if (placedOrder.equals("null")) {
-        ResultSet res = st1.executeQuery("select distinct product_id from orderlineitem where order_id = " + order_id);
-    
-        while (res.next()) {
-            String product_id = res.getString("product_id");
-            System.out.println("pid: " + product_id);
-            String updateQuantitySql = "update product "
-                                      + "set total_quantity = total_quantity - (select count(*) as total "
-                                                                              + "from orderlineitem "
-                                                                              + "where order_id = " + order_id 
-                                                                              + " and product_id = " + product_id + ") "
-                                      + "where product_id = " + product_id;
-
-            System.out.println(updateQuantitySql);
-            st2.executeUpdate(updateQuantitySql);
-        }
-        
-        request.getSession().setAttribute("placedOrder", "true");
-    }
+//    String placedOrder = request.getSession().getAttribute("placedOrder") + "";
+//    
+//    if (placedOrder.equals("null")) {
+//        ResultSet res = st1.executeQuery("select distinct product_id from orderlineitem where order_id = " + order_id);
+//    
+//        while (res.next()) {
+//            String product_id = res.getString("product_id");
+//            System.out.println("pid: " + product_id);
+//            String updateQuantitySql = "update product "
+//                                      + "set total_quantity = total_quantity - (select count(*) as total "
+//                                                                              + "from orderlineitem "
+//                                                                              + "where order_id = " + order_id 
+//                                                                              + " and product_id = " + product_id + ") "
+//                                      + "where product_id = " + product_id;
+//
+//            System.out.println(updateQuantitySql);
+//            st2.executeUpdate(updateQuantitySql);
+//        }
+//        
+//        request.getSession().setAttribute("placedOrder", "true");
+//    }
 %>
 
 <!DOCTYPE html>
