@@ -17,95 +17,33 @@
 
 <%   
     Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
-    Statement st = con.createStatement();
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*
-        reduce stock of products
-    
-        clear shoppingcart view
-    
-        add button for payment page or link right to it
-    */
-    
-    
-    
-    
-    
+    Statement st1 = con.createStatement();
+    Statement st2 = con.createStatement();
     
     String order_id = request.getSession().getAttribute("order_id") + "";
     String customer_id = request.getSession().getAttribute("customer_id") + "";
     
-    if (order_id != null) {
-        System.out.println("someting wong");
-    } else {
-        System.out.println("order_id not set");
-    }
+    String placedOrder = request.getSession().getAttribute("placedOrder") + "";
     
+    if (placedOrder.equals("null")) {
+        ResultSet res = st1.executeQuery("select distinct product_id from orderlineitem where order_id = " + order_id);
     
-    
-    
-    
-    
-    
-    
-    
-    /*
-    String order_id = "";
-    for (Cookie c : request.getCookies()) {
-        if (c.getName().equals("order_id") && c.getValue().length() > 0) {
-            order_id = c.getValue();
-            break;
+        while (res.next()) {
+            String product_id = res.getString("product_id");
+            System.out.println("pid: " + product_id);
+            String updateQuantitySql = "update product "
+                                      + "set total_quantity = total_quantity - (select count(*) as total "
+                                                                              + "from orderlineitem "
+                                                                              + "where order_id = " + order_id 
+                                                                              + " and product_id = " + product_id + ") "
+                                      + "where product_id = " + product_id;
+
+            System.out.println(updateQuantitySql);
+            st2.executeUpdate(updateQuantitySql);
         }
+        
+        request.getSession().setAttribute("placedOrder", "true");
     }
-    
-    ResultSet res;
-    
-    if (!order_id.equals("")) {
-        int i = st.executeUpdate("delete from orders where order_id not in (select distinct order_id from orderlineitem) "
-                               + "and customer_id = " + request.getSession().getAttribute("customer_id"));
-    
-        String sql = "select orders.order_id, sum((quantity * price_per_unit)) as total from orders " +
-                     "join orderlineitem on orderlineitem.order_id = orders.order_id " +
-                     "join product on product.product_id = orderlineitem.product_id " +
-                     "where customer_id = " + request.getSession().getAttribute("customer_id") + 
-                     " and orders.order_id = " + order_id + " group by orders.order_id";
-        res = st.executeQuery(sql);
-    
-        res.next();
-    
-        i = st.executeUpdate("insert into invoice (total_amount, order_id) values (" + res.getString("total") + ", " + order_id + ")");
-
-        for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equals("order_id")) {
-                cookie.setMaxAge(0);
-                cookie.setPath("/");
-
-                response.addCookie(cookie);
-                response.addCookie(new Cookie("order_id", ""));
-            }
-
-            if (cookie.getName().equals("cart")) {
-                cookie.setMaxAge(0);
-                cookie.setPath("/");
-
-                response.addCookie(cookie);
-                response.addCookie(new Cookie("cart", ""));
-            }
-        }
-    }
-*/
 %>
 
 <!DOCTYPE html>
@@ -150,9 +88,12 @@
         %>
                 <h1 class="mb-4">Order <%=order_id%> Has Been Placed!</h1>
                 <h4 class="mb-4 w-25 mx-auto" style="text-align: center">Click the button below to pay for the order to get it shipped as soon as possible.</h4>
+                
                 <form action="payment.jsp" style="text-align: center">
                     <input class="btn btn-default bg-primary text-white" type="submit" value="Pay Now"/>
+                    <a class="btn btn-default bg-light" href="cancelOrder.jsp">Cancel Order</a>
                 </form>
+                
                 <h4 class="mt-5 text-center">Order Summary</h4>
                 <table>
                     <tr>
@@ -170,7 +111,7 @@
                                  "where customer_id =" + customer_id + " " +
                                  "and orders.order_id = " + order_id;
                     
-                    ResultSet res = st.executeQuery(sql);
+                    ResultSet res = st1.executeQuery(sql);
                     
                     while (res.next()) {
                 %>
@@ -185,7 +126,7 @@
                 <%
                     }
 
-                    res = st.executeQuery("select * from outcome where order_id = " + order_id);
+                    res = st1.executeQuery("select * from outcome where order_id = " + order_id);
                     res.next();
                 %>
                     <tr>
