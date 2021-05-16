@@ -82,37 +82,37 @@
     <body>
         <ul>
             <li><a class="active" href="main.jsp">Home</a></li>
-            <li><a href="customerProductList.jsp?customer_id=<%=request.getParameter("customer_id")%>">Products</a></li>
+            <li><a href="adminProductList.jsp?staff_id=<%=request.getParameter("staff_id")%>">Products</a></li>
             <li class="dropdown">
                 <a class="dropbtn">Account </a>
                 <div class="dropdown-content">
-                    <a href="createOrder.jsp?customer_id=<%=request.getParameter("customer_id")%>">Create Order</a>
-                    <a href="myOrders.jsp?customer_id=<%=request.getParameter("customer_id")%>">Previous Orders</a>
+                    <a href="createOrder.jsp?staff_id=<%=request.getParameter("staff_id")%>">Create Order</a>
+                    <a href="myOrders.jsp?staff_id=<%=request.getParameter("staff_id")%>">Previous Orders</a>
                 </div>
             </li>
             <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">My Profile</a></li>
+            <li class="float-right"><a href="profile.jsp?staff_id=<%=request.getParameter("staff_id")%>">My Profile</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
         </ul>
 
         <h1 class="ml-5">My Details</h1>
         <div class='mx-5'>
-        <!--<h4>Order <%=request.getParameter("customer_id")%></h4>-->
+        <!--<h4>Order <%=request.getParameter("staff_id")%></h4>-->
         <table>
             <tr>
                 <th class="pr-4">First Name</th>
                 <th class="pr-4">Last Name</th>
                 <th class="pr-4">Email Address</th>
                 <th class="pr-4">Password</th>
-                <th class="pr-4">Phone Number</th>
                 <th class="pr-4">Address</th>
                 <th class="pr-4">Suburb</th>
                 <th class="pr-4">State</th>
                 <th class="pr-4">Country</th>
+                <th class="pr-4">Date of Employment</th>
             </tr>
             <%
-                String sqlQuery = "select * from customer "
-                                + "where customer_id = " + request.getParameter("customer_id");
+                String sqlQuery = "select * from staff "
+                                + "where staff_id = " + request.getSession().getAttribute("staff_id");
                                 //+ "where customer_id = " + request.getParameter("order_id");
 
                 ResultSet res = st.executeQuery(sqlQuery);
@@ -124,11 +124,11 @@
                             <td><%=res.getString("last_name")%></td>
                             <td><%=res.getString("email_address")%></td>
                             <td>********</td>
-                            <td><%=res.getString("phoneno")%></td>
                             <td><%=res.getString("address")%></td>
                             <td><%=res.getString("suburb")%></td>
                             <td><%=res.getString("state")%></td>
                             <td><%=res.getString("country")%></td>
+                            <td><%=res.getString("date_employment")%></td>
                         </tr>
                     <%
                 }
@@ -138,8 +138,8 @@
             </div>
         </div>
         <div class='mx-5 pt-5'>
-            <h4 class="float-left pr-4"><a href="updateDetails.jsp?customer_id=<%=request.getParameter("customer_id")%>">Update My Registration</a></h4>
-            <h4 class="float-left"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">Return to profile</a></h4>
+            <h4 class="float-left pr-4"><a href="adminUpdateDetails.jsp?admin_id=<%=request.getSession().getAttribute("staff_id")%>">Update My Registration</a></h4>
+            <h4 class="float-left"><a href="adminProfile.jsp?admin_id=<%=request.getSession().getAttribute("staff_id")%>">Return to profile</a></h4>
         </div>
     </body>
 </html>

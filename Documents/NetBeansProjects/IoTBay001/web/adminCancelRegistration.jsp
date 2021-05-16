@@ -85,7 +85,7 @@
             <li><a href="#">Account</a></li>
             <li><a href="#">Support</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <li class="float-right"><a href="profile.jsp?customer_id=${param.customer_id}">My Profile</a></li>
+            <li class="float-right"><a href="adminProfile.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">My Profile</a></li>
         </ul>
 
         <h1>Cancel Registration</h1>
@@ -100,12 +100,12 @@
                     <input class="btn btn-default" type="submit" value="Yes" name="registrationBtn" />
                          <%
                              //int value = ${param.customer_id};
-                             int value = Integer.valueOf(request.getParameter("customer_id"));
-                             String sqlQuery = "delete from iotadmin.logtime " + "where user_id=" + value;
-                             String sqlQuery2 = "delete from iotadmin.customer " + "where customer_id=" + value;
+                             int value = Integer.valueOf(request.getParameter("staff_id"));
+//                             String sqlQuery = "delete from iotadmin.logtime " + "where user_id=" + value;
+                             String sqlQuery2 = "delete from iotadmin.staff " + "where staff_id=" + value;
 //                                            + "where customer_id = " + request.getParameter("customer_id");
 
-                           st.executeUpdate(sqlQuery);  
+//                           st.executeUpdate(sqlQuery);  
                            st2.executeUpdate(sqlQuery2);
 //                           ResultSet res = st.executeQuery();
 
@@ -114,7 +114,7 @@
                    
             </form>
             <div>
-                <h5 class="float-left"><a class="btn btn-default" href="main.jsp"  type="submit">No</a></h5>
+                <h5 class="float-left"><a class="btn btn-default" href="adminProfile.jsp"  type="submit">No</a></h5>
             </div>
         </div>
     </body>

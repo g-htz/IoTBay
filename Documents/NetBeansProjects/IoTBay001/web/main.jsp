@@ -37,17 +37,17 @@
         
     <!--Copy below updated navbar to your pages as often as possible please!!-->
         <ul>
-            <li><a class="active" href="main.jsp?customer_id=<%=request.getParameter("customer_id")%>">Home</a></li>
-            <li><a href="customerProductList.jsp?customer_id=<%=request.getParameter("customer_id")%>">Products</a></li>
+            <li><a class="active" href="main.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Home</a></li>
+            <li><a href="customerProductList.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Products</a></li>
             <li class="dropdown">
                 <a class="dropbtn">Account </a>
                 <div class="dropdown-content">
-                    <a href="cart.jsp?customer_id=<%=request.getParameter("customer_id")%>">Create Order</a>
-                    <a href="myOrders.jsp?customer_id=<%=request.getParameter("customer_id")%>">Previous Orders</a>
+                    <a href="cart.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Create Order</a>
+                    <a href="myOrders.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Previous Orders</a>
                 </div>
             </li>
             <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">My Profile</a></li>
+            <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">My Profile</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
         </ul>
     <!--Navbar ends here!!-->

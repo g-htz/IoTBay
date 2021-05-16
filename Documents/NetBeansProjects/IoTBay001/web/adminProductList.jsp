@@ -120,12 +120,12 @@
     </head>
     <body>
         <ul>
-            <li><a href="main.jsp">Home</a></li>
+            <li><a href="adminProductList.jsp">Home</a></li>
             <li><a class="active" href="adminProductList.jsp">Products</a></li>
             <li><a href="#">Account</a></li>
             <li><a href="support.jsp">Support</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
+            <li class="float-right"><a href="adminProfile.jsp">My Profile</a></li>
         </ul>
         <div class="sidenav" id="staffControl">
   <a href="updateIndex.jsp">Update</a>

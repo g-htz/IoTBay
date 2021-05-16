@@ -12,7 +12,7 @@
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
     Statement st = con.createStatement();
     
-    ResultSet userResults = st.executeQuery("select * from customer WHERE customer_id=" + request.getParameter("customer_id"));
+    ResultSet userResults = st.executeQuery("select * from staff WHERE staff_id=" + request.getSession().getAttribute("staff_id"));
     
 %>
 <!DOCTYPE html>
@@ -33,46 +33,42 @@
                 while(userResults.next())
                 {
             %>
-                <form action="confirmUpdate.jsp?customer_id=<%=request.getParameter("customer_id")%>" method="POST">
+                <form action="adminConfirmUpdate.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>" method="POST">
                 <div class="d-flex form-group">
                     <h6>First Name</h6>
-                    <input class="ml-5 form-control" type="text" name="updateFirstNameTf" placeholder="First Name" value="<%=userResults.getString("first_name")%>" required />
+                    <input class="ml-5 form-control" type="text" name="updateStaffFirstNameTf" placeholder="First Name" value="<%=userResults.getString("first_name")%>" required />
                 </div>
                 <div class="d-flex form-group">
                     <h6>Last Name</h6>
-                    <input class="ml-5 form-control" type="text" name="updateLastNameTf" placeholder="Last Name" value="<%=userResults.getString("last_name")%>" required/>
+                    <input class="ml-5 form-control" type="text" name="updateStaffLastNameTf" placeholder="Last Name" value="<%=userResults.getString("last_name")%>" required/>
                 </div>
                 <div class="d-flex form-group">
                     <h6>Email Address</h6>
-                    <input class="ml-5 form-control" type="email" name="updateEmailTf" placeholder="Email Address" value="<%=userResults.getString("email_address")%>" required/>
+                    <input class="ml-5 form-control" type="email" name="updateStaffEmailTf" placeholder="Email Address" value="<%=userResults.getString("email_address")%>" required/>
                 </div>
                 <div class="d-flex form-group">
                     <h6>Password</h6>
-                    <input class="ml-5 form-control" type="password" name="updatePasswordTf" placeholder="Password" value="<%=userResults.getString("password")%>" required/>
-                </div>
-                <div class="d-flex form-group">
-                    <h6>Phone Number</h6>
-                    <input class="ml-5 form-control" type="text" name="updatePhoneTf" placeholder="Phone Number" value="<%=userResults.getString("phoneno")%>" required/>
+                    <input class="ml-5 form-control" type="password" name="updateStaffPasswordTf" placeholder="Password" value="<%=userResults.getString("password")%>" required/>
                 </div>
                 <div class="d-flex form-group">
                     <h6>Address</h6>
-                    <input class="ml-5 form-control" type="text" name="updateAddressTf" placeholder="Address" value="<%=userResults.getString("address")%>" required/>
+                    <input class="ml-5 form-control" type="text" name="updateStaffAddressTf" placeholder="Address" value="<%=userResults.getString("address")%>" required/>
                 </div>
                 <div class="d-flex form-group">
                     <h6>Suburb</h6>
-                    <input class="ml-5 form-control" type="text" name="updateSuburbTf" placeholder="Suburb" value="<%=userResults.getString("suburb")%>" required/>
+                    <input class="ml-5 form-control" type="text" name="updateStaffSuburbTf" placeholder="Suburb" value="<%=userResults.getString("suburb")%>" required/>
                 </div>
                 <div class="d-flex form-group">
                     <h6>State</h6>
-                    <input class="ml-5 form-control" type="text" name="updateStateTf" placeholder="State" value="<%=userResults.getString("state")%>" required/>
+                    <input class="ml-5 form-control" type="text" name="updateStaffStateTf" placeholder="State" value="<%=userResults.getString("state")%>" required/>
                 </div>
                 <div class="d-flex form-group">
                     <h6>Country</h6>
-                    <input class="ml-5 form-control" type="text" name="updateCountryTf" placeholder="Country" value="<%=userResults.getString("country")%>" required/>
+                    <input class="ml-5 form-control" type="text" name="updateStaffCountryTf" placeholder="Country" value="<%=userResults.getString("country")%>" required/>
                 </div>
                 
                 <div class="form-group">
-                    <input class="btn btn-default mx-auto" type="submit" value="Submit" name="updateDetailsBtn" />
+                    <input class="btn btn-default mx-auto" type="submit" value="Submit" name="adminUpdateDetailsBtn" />
                 </div>
             </form>
             <%       

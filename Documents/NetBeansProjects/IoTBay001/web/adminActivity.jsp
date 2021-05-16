@@ -5,10 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
+
+
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.Statement"%>
@@ -20,7 +18,6 @@
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
     Statement st = con.createStatement();
 %>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -81,7 +78,7 @@
     </head>
     <body>
         <ul>
-            <li><a class="active" href="main.jsp">Home</a></li>
+            <li><a class="active" href="main.jsp?customer_id=<%=request.getParameter("customer_id")%>">Home</a></li>
             <li><a href="customerProductList.jsp?customer_id=<%=request.getParameter("customer_id")%>">Products</a></li>
             <li class="dropdown">
                 <a class="dropbtn">Account </a>
@@ -94,52 +91,62 @@
             <li class="float-right"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">My Profile</a></li>
             <li class="float-right"><a href="logout.jsp">Logout</a></li>
         </ul>
-
-        <h1 class="ml-5">My Details</h1>
+         
+        <h1 class="ml-5">My Activity</h1>
         <div class='mx-5'>
-        <!--<h4>Order <%=request.getParameter("customer_id")%></h4>-->
-        <table>
-            <tr>
-                <th class="pr-4">First Name</th>
-                <th class="pr-4">Last Name</th>
-                <th class="pr-4">Email Address</th>
-                <th class="pr-4">Password</th>
-                <th class="pr-4">Phone Number</th>
-                <th class="pr-4">Address</th>
-                <th class="pr-4">Suburb</th>
-                <th class="pr-4">State</th>
-                <th class="pr-4">Country</th>
-            </tr>
-            <%
-                String sqlQuery = "select * from customer "
-                                + "where customer_id = " + request.getParameter("customer_id");
-                                //+ "where customer_id = " + request.getParameter("order_id");
+            <form class="form-inline" method="post" action="viewActivitySearch.jsp">
+                <table class="center" border="0">
+                    <tr class="d-flex"> 
+                        <td><input class="form-control w-100" type="text" name="search_activity" placeholder="Filter by date (yyyy-mm-dd)">
+                        <button class="mt-3 w-100 btn btn-primary" type="submit" name="btn_activity">Search</button></td>
+                    </tr>
+                </table>
+            </form>
+                <table>
+                    <tr>
+                        <th class="pr-3">Date Logged In</th>
+                        <th class="pr-3">Time Logged In</th>
+                        <th class="pr-3">Date Logged Out</th>
+                        <th class="pr-3">Time Logged Out</th>
+                    </tr>
+                <%
+                    String sqlQuery = "select * from logtime "
+                                    + "where user_id = " + request.getSession().getAttribute("customer_id");
+                                    //+ "where customer_id = " + request.getParameter("order_id");
 
-                ResultSet res = st.executeQuery(sqlQuery);
+                    ResultSet res = st.executeQuery(sqlQuery);
 
-                while (res.next()) {
-                    %>
-                        <tr>
-                            <td><%=res.getString("first_name")%></td>
-                            <td><%=res.getString("last_name")%></td>
-                            <td><%=res.getString("email_address")%></td>
-                            <td>********</td>
-                            <td><%=res.getString("phoneno")%></td>
-                            <td><%=res.getString("address")%></td>
-                            <td><%=res.getString("suburb")%></td>
-                            <td><%=res.getString("state")%></td>
-                            <td><%=res.getString("country")%></td>
-                        </tr>
-                    <%
-                }
-            %>
-        </table>
-            
-            </div>
+                    while (res.next()) {
+                        %>
+                            
+                            <tr>
+                                <td><%=res.getString("date_login")%></td>
+                                <td><%=res.getString("time_login")%></td>
+                        <%
+                            if(res.getString("date_logout") == null)
+                            {
+                        %>        
+                                <td></td>
+                                <td></td>
+                        <%    
+                            }
+                            else
+                            {
+                        %>
+                                <td><%=res.getString("date_logout")%></td>
+                                <td><%=res.getString("time_logout")%></td>
+                        <%    
+                            }
+                        %>        
+                                
+                            </tr>
+                        <%
+                    }
+                %>
+            </table>
         </div>
         <div class='mx-5 pt-5'>
-            <h4 class="float-left pr-4"><a href="updateDetails.jsp?customer_id=<%=request.getParameter("customer_id")%>">Update My Registration</a></h4>
-            <h4 class="float-left"><a href="profile.jsp?customer_id=<%=request.getParameter("customer_id")%>">Return to profile</a></h4>
+            <h4 class="float-left"><a href="profile.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Return to profile</a></h4>
         </div>
     </body>
 </html>
