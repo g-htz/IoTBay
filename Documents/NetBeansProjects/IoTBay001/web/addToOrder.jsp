@@ -196,11 +196,16 @@ while(resultSet.next()){
     <div class="card">
         
   <h1><%=resultSet.getString("product_name") %></h1>
-  <input type="hidden" name="p" value="<%=resultSet.getString("product_id") %>"</input>
+  <input type="hidden" name="p" value="<%=resultSet.getString("product_id") %>"/>
   <p class="price">Type: <%=resultSet.getString("product_type") %></p>
   <p class="price">$<%=resultSet.getString("price_per_unit") %></p>
-  <input type="hidden" name="q" value="<%=resultSet.getString("total_quantity") %>"</input>
-  <p><input type="submit" value="Add to Cart"></input></p>
+  <!--<input type="hidden" name="q" value="1"/>-->
+  <div>
+      <b>Quantity:</b>
+      <input style="width: 5em" type="number" min="1" step="1" name="q" value="1" required/>
+      <input class="ml-1" type="submit" value="Add to Cart"/>
+  </div>
+  
 </div>
 </form>
 <%
