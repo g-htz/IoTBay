@@ -117,7 +117,9 @@
                 <%
                     if (!order_id.equals("")) {
                         
-                        res = st.executeQuery("select * from shoppingcart where order_id = " + order_id);
+                        res = st.executeQuery("select product_id, order_id, product_name, quantity, price_per_unit, sum(quantity) total "
+                                            + "from shoppingcart where order_id = " + order_id + " "
+                                            + "group by product_id, order_id, product_name, quantity, price_per_unit");
 
                         if (res.isBeforeFirst()) {
                     %>
@@ -137,11 +139,11 @@
                             rows++;
                         %>
                         <tr>
-                            <td style="width: 5%"><%=res.getString("quantity")%></td>
+                            <td style="width: 5%"><%=res.getString("total")%></td>
                             <td style="width: 90%"><%=res.getString("product_name")%></td>
                             <td>$</td>
                             <td style="text-align: right"><%=new DecimalFormat("###,##0.00").format(Double.parseDouble(res.getString("price_per_unit")) * 
-                                                                                                    Double.parseDouble(res.getString("quantity")))%></td>
+                                                                                                    Double.parseDouble(res.getString("total")))%></td>
                             <td><a href="cart.jsp?rp=<%=res.getString("product_id")%>&rq=<%=res.getString("quantity")%>">Remove</a></td>
                         </tr>
                         <%
