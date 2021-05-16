@@ -49,8 +49,8 @@
                                             + "'"+STATE+"', '"+COUNTRY+"')");
     }
     
-    ResultSet customerResults = st3.executeQuery("select * from customer WHERE email_address=" + "EMAIL_ADDRESS");
-    ResultSet idResults = st4.executeQuery("select * from customer WHERE email_address=" + "EMAIL_ADDRESS");
+    ResultSet customerResults = st3.executeQuery("select * from customer WHERE email_address='" + EMAIL_ADDRESS+"'");
+    ResultSet idResults = st4.executeQuery("select * from customer WHERE email_address='" + EMAIL_ADDRESS+"'");
     while (idResults.next()) {
         //System.out.println(customerResults.getString("EMAIL_ADDRESS"));
         //System.out.println(EMAIL_ADDRESS);
@@ -87,12 +87,12 @@
             while(customerResults.next()) {
                 if(customerResults.getString("EMAIL_ADDRESS").equals(EMAIL_ADDRESS))
                 {
-            
+                    request.getSession().setAttribute("customer_id", customerResults.getString("customer_id"));
         %>
                 <div class='my-auto' style='margin: 0 auto;'>
                     <h1 style="text-align: center;"> Welcome!</h1>
                     <h2 style="text-align: center;"> Bringing you to your dashboard now!</h2>
-                    <h4 style="text-align: center;" id="timer">Redirecting in 5</h4>
+                    <h4 style="text-align: center;" id="timer">Redirecting in 3</h4>
                     <a style="display: block; text-align: center;" href="main.jsp?customer_id=<%=customerResults.getString("customer_id")%>">Click here if this page does not change.</a>        
                 </div>
 
@@ -112,7 +112,7 @@
 
                     window.onload = function () {
                         var display = document.getElementById('timer');
-                        startTimer(5, display);
+                        startTimer(2, display);
                     };
                 </script>
         <%

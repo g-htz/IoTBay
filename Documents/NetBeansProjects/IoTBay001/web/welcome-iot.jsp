@@ -15,24 +15,49 @@
 
 <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
 <%
-    String customerEmail = request.getParameter("loginEmail").toLowerCase();
-    //String customerEmail = "johnsmith123@123.com";
+    String customerEmail = request.getParameter("loginEmail");
+    String customerPassword = request.getParameter("pwd");
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
     Statement st = con.createStatement();
     Statement st2 = con.createStatement();
     Statement st3 = con.createStatement();
     Statement st4 = con.createStatement();
-//    ResultSet loginResults = st.executeQuery("select * from customer WHERE email_address=" + "EMAIL_ADDRESS");
-    ResultSet loginResults = st.executeQuery("select * from customer");
-    ResultSet loginResultsPage = st2.executeQuery("select * from customer");
+    Statement st5 = con.createStatement();
+    ResultSet loginResults = st.executeQuery("select * from customer WHERE email_address='" + customerEmail+"'");
+//    ResultSet loginResults = st.executeQuery("select * from customer");
+    ResultSet loginResultsPage = st2.executeQuery("select * from customer ");
     while(loginResults.next()) {
         if(loginResults.getString("email_address").equals(customerEmail))
         {
             int session_id = loginResults.getInt("customer_id");
             System.out.println(session_id);
+            ResultSet userSession = st3.executeQuery("select * from customer where customer_id="+session_id);
+            /*
+            while(userSession.next())
+            {
+                if(userSession.getString("password") + "" != request.getParameter("pwd") + "")
+                {
+                    System.out.println(userSession.getString("password"));
+                    System.out.println(request.getParameter("pwd"));
+                */
+                        %>
+                               <script>          
+//                                 window.location.href = "login.jsp";
+//                                 alert("Sorry! Your username or password was incorrect");
+//
+//                             </script>
+                         <% 
+                /*
+                }
+                
+            } 
+            */
+            
         }
         else
         {
+            System.out.println(loginResults.getString("email_address"));
+            System.out.println(customerEmail);
             %>
             <script>          
                 window.location.href = "login.jsp";
@@ -43,13 +68,13 @@
         }
     }
     
-    ResultSet idResults = st3.executeQuery("select * from customer");
+    ResultSet idResults = st4.executeQuery("select * from customer");
     while (idResults.next()) {
         //System.out.println(customerResults.getString("EMAIL_ADDRESS"));
         //System.out.println(EMAIL_ADDRESS);
         if(idResults.getString("EMAIL_ADDRESS").equals(customerEmail))
         {
-            int logResults = st4.executeUpdate("Insert into logtime(user_ID)"
+            int logResults = st5.executeUpdate("Insert into logtime(user_ID)"
                                                   + "values ("+idResults.getString("customer_id")+")");
         }
     }
@@ -77,7 +102,7 @@
                 <div class='my-auto' style='margin: 0 auto;'>
                     <h1 style="text-align: center;"> Welcome!</h1>
                     <h2 style="text-align: center;"> Bringing you to your dashboard now!</h2>
-                    <h4 style="text-align: center;" id="timer">Redirecting in 5</h4>
+                    <h4 style="text-align: center;" id="timer">Redirecting in 3</h4>
                     <a style="display: block; text-align: center;" href="main.jsp?customer_id=<%=loginResultsPage.getString("customer_id")%>">Click here if this page does not change.</a>        
                 </div>
 
@@ -97,7 +122,7 @@
 
                     window.onload = function () {
                         var display = document.getElementById('timer');
-                        startTimer(5, display);
+                        startTimer(2, display);
                     };
                 </script>
         <%

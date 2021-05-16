@@ -20,7 +20,7 @@
     Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
     Statement st = con.createStatement();
     Statement st2 = con.createStatement();
-    ResultSet loginResults = st.executeQuery("select * from staff");
+    ResultSet loginResults = st.executeQuery("select * from staff where email_address='"+staffEmail+"'");
     ResultSet loginResultsPage = st2.executeQuery("select * from staff");
     while(loginResults.next()) {
         if(loginResults.getString("email_address").equals(staffEmail))
@@ -63,8 +63,8 @@
                 <div class='my-auto' style='margin: 0 auto;'>
                     <h1 style="text-align: center;"> Welcome!</h1>
                     <h2 style="text-align: center;"> Bringing you to your dashboard now!</h2>
-                    <h4 style="text-align: center;" id="timer">Redirecting in 5</h4>
-                    <a style="display: block; text-align: center;" href="main.jsp?staff_id=<%=loginResultsPage.getString("staff_id")%>">Click here if this page does not change.</a>        
+                    <h4 style="text-align: center;" id="timer">Redirecting in 3</h4>
+                    <a style="display: block; text-align: center;" href="adminProductList.jsp?staff_id=<%=loginResultsPage.getString("staff_id")%>">Click here if this page does not change.</a>        
                 </div>
 
                 <script>          
@@ -76,14 +76,14 @@
                             display.textContent = "Redirecting in " + seconds;
 
                             if (--timer < 0) {
-                                window.location.href = "main.jsp?staff_id=<%=loginResultsPage.getString("staff_id")%>";
+                                window.location.href = "adminProductList.jsp?staff_id=<%=loginResultsPage.getString("staff_id")%>";
                             }
                         }, 1000);
                     }
 
                     window.onload = function () {
                         var display = document.getElementById('timer');
-                        startTimer(5, display);
+                        startTimer(2, display);
                     };
                 </script>
         <%
@@ -94,7 +94,7 @@
                     %>
                     
                       <script>          
-                        window.location.href = "login.jsp";
+                        window.location.href = "adminProductList.jsp?staff_id=<%=loginResultsPage.getString("staff_id")%>";
                         alert("Sorry! Your username or password was incorrect");
                     
                     </script>
