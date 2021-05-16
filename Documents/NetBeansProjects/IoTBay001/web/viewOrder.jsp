@@ -72,7 +72,7 @@
                 String sqlQuery = "select quantity, product_name, price_per_unit, (quantity * price_per_unit) as total_price from orders " + 
                                   "join orderlineitem on orderlineitem.order_id = orders.order_id " +
                                   "join product on product.product_id = orderlineitem.product_id " +
-                                  "where customer_id =" + request.getParameter("order_id") + " " +
+                                  "where customer_id =" + request.getSession().getAttribute("customer_id") + " " +
                                   "and orders.order_id = " + request.getParameter("order_id");
 
                 ResultSet res = st.executeQuery(sqlQuery);
