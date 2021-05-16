@@ -35,22 +35,21 @@
     </head>
     <body style="background-color:#f2c9c9;">
         
-    <!--Copy below updated navbar to your pages as often as possible please!!-->
         <div>
-                    <ul>
-                        <li><a href="main.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Home</a></li>
-                        <li><a href="customerProductList.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Products</a></li>
-                        <li class="order-dropdown">
-                            <a class="order-btn">Orders</a>
-                            <div class="order-content">
-                                <a href="cart.jsp">My Cart</a>
-                                <a href="myOrders.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Previous Orders</a>
-                            </div>
-                        </li>
-                        <li><a href="Support.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Support</a></li>
-                        <li class="float-right"><a href="logout.jsp">Logout</a></li>
-                        <li class="float-right"><a class="active" href="profile.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">My Profile</a></li>
-                    </ul>
+            <ul>
+                <li><a class="active" href="main.jsp">Home</a></li>
+                <li><a href="customerProductList.jsp">Products</a></li>
+                <li class="order-dropdown">
+                    <a class="order-btn">Orders</a>
+                    <div class="order-content">
+                        <a href="cart.jsp">My Cart</a>
+                        <a href="myOrders.jsp">Previous Orders</a>
+                    </div>
+                </li>
+                <li><a href="support.jsp">Support</a></li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a href="profile.jsp">My Profile</a></li>
+            </ul>
         </div>
         
     <!--Navbar ends here!!-->

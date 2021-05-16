@@ -19,6 +19,7 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="Stylesheet" href="style.css">
+        <link href="css/navbar.css" rel="stylesheet" type="text/css"/>
         <style>
             body {margin:0;}
 
@@ -112,14 +113,22 @@
         </style>
     </head>
     <body>
-        <ul>
-            <li><a href="main.jsp">Home</a></li>
-            <li><a class="active" href="customerProductList.jsp">Products</a></li>
-            <li><a href="#">Account</a></li>
-            <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
-        </ul>
+        <div>
+            <ul>
+                <li><a href="main.jsp">Home</a></li>
+                <li><a class="active" href="customerProductList.jsp">Products</a></li>
+                <li class="order-dropdown">
+                    <a class="order-btn">Orders</a>
+                    <div class="order-content">
+                        <a href="cart.jsp">My Cart</a>
+                        <a href="myOrders.jsp">Previous Orders</a>
+                    </div>
+                </li>
+                <li><a href="support.jsp">Support</a></li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a href="profile.jsp">My Profile</a></li>
+            </ul>
+        </div>
     <center>
 <form class="form-inline" method="post" action="customerSearch.jsp">
 <table class="center" border="0">

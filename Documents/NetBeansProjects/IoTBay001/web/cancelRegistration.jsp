@@ -79,14 +79,22 @@
         </style>
     </head>
     <body>
-        <ul>
-            <li><a class="active" href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Account</a></li>
-            <li><a href="#">Support</a></li>
-            <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <li class="float-right"><a href="profile.jsp?customer_id=${param.customer_id}">My Profile</a></li>
-        </ul>
+        <div>
+            <ul>
+                <li><a href="main.jsp">Home</a></li>
+                <li><a href="customerProductList.jsp">Products</a></li>
+                <li class="order-dropdown">
+                    <a class="order-btn">Orders</a>
+                    <div class="order-content">
+                        <a href="cart.jsp">My Cart</a>
+                        <a href="myOrders.jsp">Previous Orders</a>
+                    </div>
+                </li>
+                <li><a href="support.jsp">Support</a></li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a class="active" href="profile.jsp">My Profile</a></li>
+            </ul>
+        </div>
 
         <h1>Cancel Registration</h1>
         <div class='mx-5'>

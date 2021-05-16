@@ -116,14 +116,22 @@ String productName=(request.getParameter("search_product")).toLowerCase();
         </style>
     </head>
     <body>
-         <ul>
-            <li><a href="main.jsp">Home</a></li>
-            <li><a class="active" href="customerProductList.jsp">Products</a></li>
-            <li><a href="#">Account</a></li>
-            <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
-        </ul>
+         <div>
+            <ul>
+                <li><a class="active" href="main.jsp">Home</a></li>
+                <li><a href="customerProductList.jsp">Products</a></li>
+                <li class="order-dropdown">
+                    <a class="order-btn">Orders</a>
+                    <div class="order-content">
+                        <a href="cart.jsp">My Cart</a>
+                        <a href="myOrders.jsp">Previous Orders</a>
+                    </div>
+                </li>
+                <li><a href="support.jsp">Support</a></li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a href="profile.jsp">My Profile</a></li>
+            </ul>
+        </div>
         <div class="sidenav">
             <a href="javascript:history.back()">Go Back</a>
         </div>

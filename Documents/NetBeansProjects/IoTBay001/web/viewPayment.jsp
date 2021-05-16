@@ -38,14 +38,20 @@
     </style>
     <body>
         
-        <div class="navbar" style="padding-bottom: 60px">
+        <div>
             <ul>
-                <li><a href="Main.jsp"> Home </a></li>
-                <li><a href="Shopping.jsp"> Browse </a></li>
-                <li><a href="#"> Account </a></li>
-                <li><a href="Support.jsp"> Support </a></li>
-                <li class="float-right"><a href="Logout.jsp">Logout</a></li>
-                <li class="float-right"><a href="Profile.jsp">My Profile</a></li>
+                <li><a href="main.jsp">Home</a></li>
+                <li><a href="customerProductList.jsp">Products</a></li>
+                <li class="order-dropdown">
+                    <a class="order-btn">Orders</a>
+                    <div class="order-content">
+                        <a href="cart.jsp">My Cart</a>
+                        <a href="myOrders.jsp">Previous Orders</a>
+                    </div>
+                </li>
+                <li><a href="support.jsp">Support</a></li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a class="active" href="profile.jsp">My Profile</a></li>
             </ul>
         </div>
         

@@ -16,6 +16,7 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link href="css/Style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/navbar.css" rel="stylesheet" type="text/css"/>
         <title> IoTBay | Payment History </title>
     </head>
     
@@ -34,14 +35,20 @@
     </style>
     <body>
         
-        <div class="navbar" style="padding-bottom: 60px">
+        <div>
             <ul>
-                <li><a href="Main.jsp"> Home </a></li>
-                <li><a href="Shopping.jsp"> Browse </a></li>
-                <li><a href="#"> Account </a></li>
-                <li><a href="Support.jsp"> Support </a></li>
-                <li class="float-right"><a href="Logout.jsp">Logout</a></li>
-                <li class="float-right"><a href="Profile.jsp">My Profile</a></li>
+                <li><a class="active" href="main.jsp">Home</a></li>
+                <li><a href="customerProductList.jsp">Products</a></li>
+                <li class="order-dropdown">
+                    <a class="order-btn">Orders</a>
+                    <div class="order-content">
+                        <a href="cart.jsp">My Cart</a>
+                        <a href="myOrders.jsp">Previous Orders</a>
+                    </div>
+                </li>
+                <li><a href="support.jsp">Support</a></li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a href="profile.jsp">My Profile</a></li>
             </ul>
         </div>
         
