@@ -89,7 +89,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="Stylesheet" href="css/style.css">
+        <link rel="Stylesheet" href="css/Style.css">
     </head>
     <body>
         <% 
@@ -100,7 +100,7 @@
             
         %>
                 <div class='my-auto' style='margin: 0 auto;'>
-                    <h1 style="text-align: center;"> Welcome!</h1>
+                    <h1 style="text-align: center;"> Welcome  <%=loginResultsPage.getString("first_name")%>!</h1>
                     <h2 style="text-align: center;"> Bringing you to your dashboard now!</h2>
                     <h4 style="text-align: center;" id="timer">Redirecting in 3</h4>
                     <a style="display: block; text-align: center;" href="main.jsp?customer_id=<%=loginResultsPage.getString("customer_id")%>">Click here if this page does not change.</a>        

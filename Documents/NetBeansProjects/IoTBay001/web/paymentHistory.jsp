@@ -35,7 +35,7 @@
     </style>
     <body>
         
-        <div>
+       <div>
             <ul>
                 <li><a class="active" href="main.jsp">Home</a></li>
                 <li><a href="customerProductList.jsp">Products</a></li>
@@ -98,9 +98,5 @@
             </table>
         </div> 
                 
-        <div class="footer">
-            <p> @Copyright 2021 - ISD Group 16 </p>
-            <p> George Hetrelezis, Misty Duong, Reagan Brasch, Catherine Pe Benito </p>
-        </div>
     </body>
 </html>

@@ -33,6 +33,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="Stylesheet" href="css/Style.css">
         <link rel="Stylesheet" href="css/navbar.css">
     </head>
     
@@ -49,11 +50,11 @@
     <body>
         <div>
             <ul>
-                <li><a href="main.jsp">Home</a></li>
+                <li><a class="active" href="main.jsp">Home</a></li>
                 <li><a href="customerProductList.jsp">Products</a></li>
                 <li class="order-dropdown">
                     <a class="order-btn">Orders</a>
-                    <div class="active" class="order-content">
+                    <div class="order-content">
                         <a href="cart.jsp">My Cart</a>
                         <a href="myOrders.jsp">Previous Orders</a>
                     </div>
@@ -118,8 +119,5 @@
             %>
         </table>
         
-        <footer style="width: 100%;background-color: #202020;color: whitesmoke;text-align: center; padding-bottom: 5px; margin-top: 20px;">            <p> @Copyright 2021 - ISD Group 16 </p>
-            <p> George Hetrelezis, Misty Duong, Reagan Brasch, Catherine Pe Benito </p>
-        </footer>
     </body>
 </html>

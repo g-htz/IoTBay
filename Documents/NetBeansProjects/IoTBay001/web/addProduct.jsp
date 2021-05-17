@@ -1,53 +1,43 @@
-<%-- 
-    Document   : main
-    Created on : 3 Apr 2021, 1:36:20 pm
-    Author     : Reagan
---%>
-
-<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+ 
+
+<%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
 
+ 
+
 <%
-    String input_productName=request.getParameter("add_product_name");
-    String input_totalQuantity = request.getParameter("add_totalQuantity");
-    String input_pricePerUnit = request.getParameter("add_pricePerUnit");
-    String input_productType=request.getParameter("add_productType");
-    String input_supplierID = request.getParameter("add_supplierID");
-if(input_supplierID != null)
-{
-Connection connection = null;
-Statement statement = null;
-int inputSupplierID = Integer.parseInt(input_supplierID);
-    try {
-    connection=DriverManager.getConnection("jdbc:derby://localhost:1527/iotdb", "iotadmin", "iotbayadmin");
-    statement = connection.createStatement();
-    int i=statement.executeUpdate("Insert into product(product_name,"
-                            + "total_quantity, price_per_unit, product_type, supplier_id)"
-                            + "values ('"+input_productName+"', '"+input_totalQuantity+"',"
-                             + "'"+input_pricePerUnit+"', '"+input_productType+"','"+inputSupplierID+"')");}
-catch(SQLException sql)
-{
-request.setAttribute("error", sql);
-out.println(sql);
-}
-}
+    String PRODUCT_NAME = request.getParameter("productName");
+    String PRODUCT_TYPE = request.getParameter("productType");
+    int TOTAL_QUANTITY = Integer.parseInt(request.getParameter("totalQuantity"));
+    int PRICE_PER_UNIT = Integer.parseInt(request.getParameter("pricePerUnit"));
+    int SUPPLIER_ID = Integer.parseInt(request.getParameter("supplierID")); 
+    
+    Connection con=DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
+    Statement st = con.createStatement();
+    
+    int i=st.executeUpdate("Insert into product(PRODUCT_NAME, PRODUCT_TYPE, TOTAL_QUANTITY, PRICE_PER_UNIT, SUPPLIER_ID)"
+                            + "values ('"+PRODUCT_NAME+"', '"+PRODUCT_TYPE+"', "
+                             + " "+TOTAL_QUANTITY+", "+PRICE_PER_UNIT+","+SUPPLIER_ID+")");
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Add Product</title>
+        <title>IoTBay - Dashboard</title>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link href="css/Style.css" rel="stylesheet" type="text/css"/>
         <style>
             body {margin:0;}
+
+ 
 
             ul {
               list-style-type: none;
@@ -60,10 +50,14 @@ out.println(sql);
               width: 100%;
             }
 
+ 
+
             li {
               float: left;
               
             }
+
+ 
 
             li a {
               display: block;
@@ -89,9 +83,13 @@ out.println(sql);
                 transition: 0.3s;
               }
 
+ 
+
               .closebtn:hover {
                 color: black;
               }
+
+ 
 
             li a:hover:not(.active) {
               background-color: #70eeff;
@@ -106,6 +104,8 @@ out.println(sql);
                   margin-right: auto;
               }
 
+ 
+
               .tableHeading {
                   background-color: #f2f2f2;
                   text-align: center;
@@ -114,6 +114,8 @@ out.println(sql);
               .tableColor {
                   background-color: #ffffff;
               }
+
+ 
 
             .active {
               background-color: #70eeff;
@@ -136,6 +138,8 @@ out.println(sql);
                 padding: 8px 0;
               }
 
+ 
+
               .sidenav a {
                 padding: 6px 8px 6px 16px;
                 text-decoration: none;
@@ -144,6 +148,8 @@ out.println(sql);
                 display: block;
               }
 
+ 
+
               .sidenav a:hover {
                 color: #064579;
                 font-weight: bold;
@@ -151,14 +157,17 @@ out.println(sql);
         </style>
     </head>
     <body>
-        <ul>
-            <li><a href="main.jsp">Home</a></li>
-            <li><a class="active" href="adminProductList.jsp">Products</a></li>
-            <li><a href="#">Account</a></li>
-            <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
-        </ul>
+        <div>
+            <ul>
+                <li><a class="active" href="adminProductList.jsp">Home</a></li>
+                <li><a href="adminProductList.jsp">Products</a></li>
+                <li class="order-dropdown">
+                </li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a href="adminProfile.jsp">My Profile</a></li>
+            </ul>
+        </div>
+        
         <div class="sidenav">
             <a href="javascript:history.back()">Go Back</a>
         </div>
@@ -167,9 +176,21 @@ out.println(sql);
 <br>
 <div class="alert success">
   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>  
-  <strong>Success!</strong> Added record <%=request.getParameter("product_id")%>
+  <%
+try{
+String sql ="select * from product where product_id = (select max(product_id) FROM product)";
+ResultSet resultSet = st.executeQuery(sql);
+while(resultSet.next()){
+%>
+  <strong>Success!</strong> Added record <%=resultSet.getString("product_id") %>
+  <%
+}
+} catch (Exception e) {
+e.printStackTrace();
+}
+%>
 </div>
-<table border="1" class="mb-5 pb-5">
+<table border="1">
 <tr class="tableHeading">
 <td>Product ID</td>
 <td>Product Name</td>
@@ -180,10 +201,8 @@ out.println(sql);
 </tr>
 <%
 try{
-Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/IoTDB", "iotadmin", "iotbayadmin");
-Statement statement=connection.createStatement();
 String sql ="select * from product";
-ResultSet resultSet = statement.executeQuery(sql);
+ResultSet resultSet = st.executeQuery(sql);
 while(resultSet.next()){
 %>
 <tr class="tableColor">
@@ -196,12 +215,19 @@ while(resultSet.next()){
 </tr>
 <%
 }
-connection.close();
+con.close();
 } catch (Exception e) {
 e.printStackTrace();
 }
 %>
 </table>
         </center>
+    <footer style="width: 100%;background-color: #202020;color: whitesmoke;text-align: center; padding-bottom: 5px; margin-top: 10px">
+            <p> @Copyright 2021 - ISD Group 16 </p>
+            <p> George Hetrelezis, Misty Duong, Reagan Brasch, Catherine Pe Benito </p>
+        </footer>
 </body>
+
+ 
+
 </html>

@@ -21,7 +21,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/Style.css" rel="stylesheet" type="text/css"/>
         <link href="css/navbar.css" rel="stylesheet" type="text/css"/>
         <title> IoTBay | Payment Cancelled </title>
     </head>
@@ -53,13 +53,9 @@
             <h2 style="text-align: center"> Select one of the option below or simple close the browser to end your session: </h2>
 
 
-            <form style="text-align: center" action="shopping.jsp" method="POST">
+            <form style="text-align: center" action="customerProductList.jsp" method="POST">
                 <button class="button" type="submit"> Continue Shopping </button> <br>
             </form>
         
-        <div class="footer">
-            <p> @Copyright 2021 - ISD Group 16 </p>
-            <p> George Hetrelezis, Misty Duong, Reagan Brasch, Catherine Pe Benito </p>
-        </div>
     </body>
 </html>

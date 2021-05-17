@@ -79,14 +79,17 @@
         </style>
     </head>
     <body>
-        <ul>
-            <li><a class="active" href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Account</a></li>
-            <li><a href="#">Support</a></li>
-            <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <li class="float-right"><a href="adminProfile.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">My Profile</a></li>
-        </ul>
+        <div>
+            <ul>
+                <li><a class="active" href="adminProductList.jsp">Home</a></li>
+                <li><a href="adminProductList.jsp">Products</a></li>
+                <li class="order-dropdown">
+                    </div>
+                </li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a href="adminProfile.jsp">My Profile</a></li>
+            </ul>
+        </div>
 
         <h1>Cancel Registration</h1>
         <div class='mx-5'>

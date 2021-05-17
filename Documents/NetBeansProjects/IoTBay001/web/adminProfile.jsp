@@ -8,6 +8,7 @@
 
 
 <%@page import="java.sql.DriverManager"%>
+<a href="adminProfile.jsp"></a>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
@@ -74,20 +75,17 @@
         </style>
     </head>
     <body>
-        <ul>
-            <li><a class="active" href="adminProductList.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Home</a></li>
-            <li><a href="adminProductList.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Products</a></li>
-            <li class="dropdown">
-                <a class="dropbtn">Account </a>
-                <div class="dropdown-content">
-                    <a href="createOrder.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Create Order</a>
-                    <a href="myOrders.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Previous Orders</a>
-                </div>
-            </li>
-            <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="adminProfile.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">My Profile</a></li>
-            <li class="float-right"><a href="logout.jsp">Logout</a></li>
-        </ul>
+        <div>
+            <ul>
+                <li><a class="active" href="adminProductList.jsp">Home</a></li>
+                <li><a href="adminProductList.jsp">Products</a></li>
+                <li class="order-dropdown">
+                    </div>
+                </li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a href="adminProfile.jsp">My Profile</a></li>
+            </ul>
+        </div>
 
         <h1 class="ml-5">My Profile</h1>
         <div class='mx-5'>
@@ -112,10 +110,6 @@
                     <h4 class="float-left mb-5 pb-5"><a href="adminCancelRegistration.jsp?staff_id=<%=request.getSession().getAttribute("staff_id")%>">Cancel My Registration</a></h4>
                 </div>
             </div>
-        </div>
-        <div class="footer">
-            <p> @Copyright 2021 - ISD Group 16 </p>
-            <p> George Hetrelezis, Misty Duong, Reagan Brasch, Catherine Pe Benito </p>
         </div>
     </body>
 </html>

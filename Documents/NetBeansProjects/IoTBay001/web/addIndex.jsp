@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Add Product</title>
@@ -6,10 +8,12 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="Stylesheet" href="style.css">
+        <link href="CSS/Style.css" rel="stylesheet" type="text/css"/>
         <% Class.forName("org.apache.derby.jdbc.ClientDriver");%>
     <style>
             body {margin:0;}
+
+ 
 
             ul {
               list-style-type: none;
@@ -22,10 +26,14 @@
               width: 100%;
             }
 
+ 
+
             li {
               float: left;
               
             }
+
+ 
 
             li a {
               display: block;
@@ -36,9 +44,13 @@
               font-size: 2rem;
             }
 
+ 
+
             li a:hover:not(.active) {
               background-color: #70eeff;
             }
+
+ 
 
             .active {
               background-color: #70eeff;
@@ -61,6 +73,8 @@
                 padding: 8px 0;
               }
 
+ 
+
               .sidenav a {
                 padding: 6px 8px 6px 16px;
                 text-decoration: none;
@@ -69,10 +83,14 @@
                 display: block;
               }
 
+ 
+
               .sidenav a:hover {
                 color: #064579;
                 font-weight: bold;
               }
+
+ 
 
               .main {
                 margin-left: 140px; /* Same width as the sidebar + left position in px */
@@ -80,45 +98,48 @@
                 padding: 0px 10px;
               }
 
+ 
+
               @media screen and (max-height: 450px) {
                 .sidenav {padding-top: 15px;}
                 .sidenav a {font-size: 18px;}
               }
         </style>
     </head>
-    <body>
-         <ul>
-            <li><a href="main.jsp">Home</a></li>
-            <li><a class="active" href="adminProductList.jsp">Products</a></li>
-            <li><a href="#">Account</a></li>
-            <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
-        </ul>
+    <body>        
+        <div>
+            <ul>
+                <li><a class="active" href="adminProductList.jsp">Home</a></li>
+                <li><a href="adminProductList.jsp">Products</a></li>
+                <li class="order-dropdown">
+                    </div>
+                </li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a href="adminProfile.jsp">My Profile</a></li>
+            </ul>
+        </div>
+        
         <div class="sidenav">
             <a href="javascript:history.back()">Go Back</a>
         </div>
     <center>
         <div class='col-md-3 my-auto' style='margin: 0 auto;'>
             <h1 class='align-middle' style='text-align: center;'>Add Product</h1>
-            <form action="addProduct.jsp" method="POST" enctype="multipart/form-data">
+            <form action="addProduct.jsp" method="POST">
                 <div class="form-group">
-                    <input class="form-control" type="hidden" name="add_productID"/>
+                    <input class="form-control" type="textfield" name="productName" placeholder="Product Name" required/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="add_productName" placeholder="Product Name" required/>
+                    <input class="form-control" type="textfield" name="totalQuantity" placeholder="Total Quantity" required/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="add_totalQuantity" placeholder="Total Quantity" required/>
+                    <input class="form-control" type="textfield" name="pricePerUnit" placeholder="Price Per Unit" required/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="add_pricePerUnit" placeholder="Price Per Unit" required/>
+                    <input class="form-control" type="textfield" name="productType" placeholder="Product Type" required/>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="add_productType" placeholder="Product Type" required/>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="add_supplierID" placeholder="Supplier ID" required/>
+                    <input class="form-control" type="textfield" name="supplierID" placeholder="Supplier ID" required/>
                 </div>
                 <div class="form-group">
                     <input class="btn btn-default" type="submit" value="Submit" name="addButton" />
@@ -126,5 +147,6 @@
             </form>
         </div>
     </center>
+    
     </body>
 </html>

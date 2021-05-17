@@ -29,6 +29,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="Stylesheet" href="css/Style.css">
         <style>
             body {margin:0;}
 
@@ -80,20 +81,17 @@
         </style>
     </head>
     <body>
-        <ul>
-            <li><a class="active" href="main.jsp">Home</a></li>
-            <li><a href="adminProductList.jsp?staff_id=<%=request.getParameter("staff_id")%>">Products</a></li>
-            <li class="dropdown">
-                <a class="dropbtn">Account </a>
-                <div class="dropdown-content">
-                    <a href="createOrder.jsp?staff_id=<%=request.getParameter("staff_id")%>">Create Order</a>
-                    <a href="myOrders.jsp?staff_id=<%=request.getParameter("staff_id")%>">Previous Orders</a>
-                </div>
-            </li>
-            <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="profile.jsp?staff_id=<%=request.getParameter("staff_id")%>">My Profile</a></li>
-            <li class="float-right"><a href="logout.jsp">Logout</a></li>
-        </ul>
+        <div>
+            <ul>
+                <li><a class="active" href="adminProductList.jsp">Home</a></li>
+                <li><a href="adminProductList.jsp">Products</a></li>
+                <li class="order-dropdown">
+                    </div>
+                </li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a href="adminProfile.jsp">My Profile</a></li>
+            </ul>
+        </div>
 
         <h1 class="ml-5">My Details</h1>
         <div class='mx-5'>

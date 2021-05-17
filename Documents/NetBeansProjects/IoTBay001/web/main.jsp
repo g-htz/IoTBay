@@ -31,7 +31,6 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="Stylesheet" href="css/Style.css">
-        <link rel="Stylesheet" href="css/navbar.css">
     </head>
     <body style="background-color:#f2c9c9;">
         

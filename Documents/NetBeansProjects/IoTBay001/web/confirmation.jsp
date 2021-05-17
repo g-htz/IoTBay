@@ -40,7 +40,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/Style.css" rel="stylesheet" type="text/css"/>
         <link href="css/navbar.css" rel="stylesheet" type="text/css"/>
     </head>
     
@@ -101,7 +101,7 @@
                 ps.setString(7, EXP_YEAR);
                 int pu = ps.executeUpdate(); } %>
        
-        <div style="height: 1000px; background-color: floralwhite;">
+        <div class="mb-5 pb-5" style"background-color: floralwhite;">
             <h1> Thank you for purchasing at IoTBay! </h1>
             <p style="font-size: 20px; text-align: center"> We are processing your order, here are the details: </p>
             <p style="font-size: 20px; text-align: center"> Please select the option below to finalize your payment </p>
@@ -173,10 +173,5 @@
             </div>   
             </form>
         </div>   
-   
-        <div class="footer">
-            <p> @Copyright 2021 - ISD Group 16 </p>
-            <p> George Hetrelezis, Misty Duong, Reagan Brasch, Catherine Pe Benito </p>
-        </div>
     </body>
 </html>

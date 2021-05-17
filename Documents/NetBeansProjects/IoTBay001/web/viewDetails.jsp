@@ -29,6 +29,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="Stylesheet" href="css/Style.css">
         <style>
             body {margin:0;}
 
@@ -82,7 +83,7 @@
     <body>
         <div>
             <ul>
-                <li><a href="main.jsp">Home</a></li>
+                <li><a class="active" href="main.jsp">Home</a></li>
                 <li><a href="customerProductList.jsp">Products</a></li>
                 <li class="order-dropdown">
                     <a class="order-btn">Orders</a>
@@ -93,7 +94,7 @@
                 </li>
                 <li><a href="support.jsp">Support</a></li>
                 <li class="float-right"><a href="logout.jsp">Logout</a></li>
-                <li class="float-right"><a class="active" href="profile.jsp">My Profile</a></li>
+                <li class="float-right"><a href="profile.jsp">My Profile</a></li>
             </ul>
         </div>
 

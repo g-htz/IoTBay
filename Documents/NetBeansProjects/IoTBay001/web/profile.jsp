@@ -76,7 +76,7 @@
     <body>
         <div>
             <ul>
-                <li><a href="main.jsp">Home</a></li>
+                <li><a class="active" href="main.jsp">Home</a></li>
                 <li><a href="customerProductList.jsp">Products</a></li>
                 <li class="order-dropdown">
                     <a class="order-btn">Orders</a>
@@ -87,7 +87,7 @@
                 </li>
                 <li><a href="support.jsp">Support</a></li>
                 <li class="float-right"><a href="logout.jsp">Logout</a></li>
-                <li class="float-right"><a class="active" href="profile.jsp">My Profile</a></li>
+                <li class="float-right"><a href="profile.jsp">My Profile</a></li>
             </ul>
         </div>
 
@@ -114,10 +114,6 @@
                     <h4 class="float-left mb-5 pb-5"><a href="cancelRegistration.jsp?customer_id=<%=request.getSession().getAttribute("customer_id")%>">Cancel My Registration</a></h4>
                 </div>
             </div>
-        </div>
-        <div class="footer">
-            <p> @Copyright 2021 - ISD Group 16 </p>
-            <p> George Hetrelezis, Misty Duong, Reagan Brasch, Catherine Pe Benito </p>
         </div>
     </body>
 </html>

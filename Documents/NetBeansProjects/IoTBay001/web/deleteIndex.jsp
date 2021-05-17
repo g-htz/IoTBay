@@ -14,7 +14,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="Stylesheet" href="style.css">
+        <link rel="Stylesheet" href="css/Style.css">
         <style>
             body {margin:0;}
 
@@ -118,14 +118,16 @@
         </style>
 </head>
 <body>
-         <ul>
-            <li><a href="main.jsp">Home</a></li>
-            <li><a class="active" href="adminProductList.jsp">Products</a></li>
-            <li><a href="#">Account</a></li>
-            <li><a href="support.jsp">Support</a></li>
-            <li class="float-right"><a href="logout.jsp">Logout</a></li>
-            <li class="float-right"><a href="profile.jsp">My Profile</a></li>
-        </ul>
+         <div>
+            <ul>
+                <li><a class="active" href="adminProductList.jsp">Home</a></li>
+                <li><a href="adminProductList.jsp">Products</a></li>
+                <li class="order-dropdown">
+                </li>
+                <li class="float-right"><a href="logout.jsp">Logout</a></li>
+                <li class="float-right"><a href="adminProfile.jsp">My Profile</a></li>
+            </ul>
+        </div>
         <div class="sidenav">
             <a href="javascript:history.back()">Go Back</a>
         </div>

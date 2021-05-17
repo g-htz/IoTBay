@@ -17,7 +17,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> 
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
-        <link href="CSS/Style.css" rel="stylesheet" type="text/css"/> 
+        <link href="css/Style.css" rel="stylesheet" type="text/css"/> 
         <link href="css/navbar.css" rel="stylesheet" type="text/css"/>
     </head> 
      
@@ -63,7 +63,7 @@
         </ul>--> 
   
         <h1 style="text-align:center"> Customer Checkout </h1> 
-        <div style="height: 2500px; "> 
+        <div class="mb-5 pb-5"> 
         <form center action="confirmation.jsp" method="POST"> 
              
         <div style="padding-bottom: 10px; margin-left: 400px">             
@@ -106,14 +106,14 @@
                     <tr> 
                         <td><input type="radio" id="credit" name="paymentmethod" value="Credit Card" required/></td> 
                         <td> Credit Card </td>  
-                        <td><img src="Images/CC.png" alt="Credit Card" width="70" height="70"></td> 
+                        <td><img src="images/CC.png" alt="Credit Card" width="70" height="70"></td> 
                         <td> </td> 
                         <td><input type="radio" id="vc" name="paymentmethod" value="Visa Card"/></td> 
                         <td> VISA </td> 
-                        <td><img src="Images/VC.png" alt="PayPal" width="80" height="50"></td> 
+                        <td><img src="images/VC.png" alt="PayPal" width="80" height="50"></td> 
                         <td><input type="radio" id="mc" name="paymentmethod"value="Master Card"/></td> 
                         <td> MasterCard </td> 
-                        <td><img src="Images/MC.png" alt="PayPal" width="100" height="50"></td> 
+                        <td><img src="images/MC.png" alt="PayPal" width="100" height="50"></td> 
                     </tr> 
                 </table> 
              
@@ -161,11 +161,11 @@
                     <tr> 
                         <td><input type="radio" id="normal" name="shipping" value="standard" required/></td> 
                         <td> Standard Shipping </td>  
-                        <td><img src="Images/normal.jpeg" alt="Credit Card" width="90" height="60"></td> 
+                        <td><img src="images/normal.jpeg" alt="Credit Card" width="90" height="60"></td> 
                         <td> </td> 
                         <td><input type="radio" id="express" name="shipping" value="express"/></td> 
                         <td> Express Shipping </td> 
-                        <td><img src="Images/express.png" alt="PayPal" width="80" height="50"></td> 
+                        <td><img src="images/express.png" alt="PayPal" width="80" height="50"></td> 
                     </tr> 
                 </table> 
   
@@ -186,9 +186,5 @@
         </form> 
         </div> 
          
-        <div class="footer"> 
-            <p> @Copyright 2021 - ISD Group 16 </p> 
-            <p> George Hetrelezis, Misty Duong, Reagan Brasch, Catherine Pe Benito </p> 
-        </div> 
     </body> 
 </html> 

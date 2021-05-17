@@ -57,10 +57,10 @@
     <body>
         <div>
             <ul>
-                <li><a href="main.jsp">Home</a></li>
+                <li><a class="active" href="main.jsp">Home</a></li>
                 <li><a href="customerProductList.jsp">Products</a></li>
                 <li class="order-dropdown">
-                    <a class="order-btn active">Orders</a>
+                    <a class="order-btn">Orders</a>
                     <div class="order-content">
                         <a href="cart.jsp">My Cart</a>
                         <a href="myOrders.jsp">Previous Orders</a>
